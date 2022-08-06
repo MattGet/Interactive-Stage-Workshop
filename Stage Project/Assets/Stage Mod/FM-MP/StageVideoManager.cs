@@ -15,7 +15,6 @@ public class StageVideoManager : MonoBehaviour
     public GameObject Screen;
     public string VideoURL = "Enter Video URL Here";
     public VideoPlayer player;
-    public VideoPlayer audioSource;
     public ReactingLights Lights;
     public GameObject LaserParent;
     public List<Playanim> Animators = new List<Playanim>();
@@ -23,8 +22,6 @@ public class StageVideoManager : MonoBehaviour
 
     public bool playOnStart = false;
     public bool generateUsingClient;
-
-    private string audioUrl;
     private string videoUrl;
     public VideoQuality videoQuality = VideoQuality.AUTOMATIC;
     public VideoFormatType videoFormat = VideoFormatType.MP4;
@@ -35,9 +32,6 @@ public class StageVideoManager : MonoBehaviour
     [HideInInspector]
     public bool onlytriggeronce = false;
     private string VideoID;
-    private static string audiostring = "\"itag\": 18";
-    [HideInInspector]
-    public bool requireaudio = false;
     private bool isVideoUrl = false;
     [HideInInspector]
     public UnityEvent<string> gotURL;
@@ -128,9 +122,6 @@ public class StageVideoManager : MonoBehaviour
             case 2:
                 videoQuality = VideoQuality.HighQuality;
                 break;
-            case 3:
-                videoQuality = VideoQuality.UltraHighQuality;
-                break;
             default:
                 videoQuality = VideoQuality.AUTOMATIC;
                 break;
@@ -159,8 +150,6 @@ public class StageVideoManager : MonoBehaviour
     IEnumerator Startvideo(bool andplay)
     {
         player.url = "";
-        audioSource.url = "";
-        requireaudio = false;
         if (VideoURL == "Enter Video URL Here")
         {
             Debug.LogWarning("FMVP: Attempted to start video without a URL input!!!");
@@ -176,14 +165,6 @@ public class StageVideoManager : MonoBehaviour
         player.url = videoUrl;
         player.Prepare();
         player.errorReceived += VideoPlayer_errorReceived;
-        if (requireaudio == true)
-        {
-            Debug.Log("FMVP: Preparing Audio");
-            audioSource.url = audioUrl;
-            audioSource.Prepare();
-            audioSource.errorReceived += VideoPlayer_errorReceived;
-            yield return new WaitUntil(() => audioSource.isPrepared);
-        }
         yield return new WaitUntil(() => player.isPrepared);
         if (player.isPrepared)
         {
@@ -198,11 +179,8 @@ public class StageVideoManager : MonoBehaviour
 
     public void SetVideoStartTime(float time)
     {
-        if (videoQuality != VideoQuality.UltraHighQuality)
-        {
             Debug.Log($"Setting Video Start Time To: {time}");
             StartCoroutine(VST(time));
-        }
     }
 
     private IEnumerator VST(float time)
@@ -224,12 +202,6 @@ public class StageVideoManager : MonoBehaviour
         {
             Debug.Log("FMVP: Playing video");
             player.Play();
-
-            if (requireaudio == true)
-            {
-                audioSource.Play();
-
-            }
             onlytriggeronce = true;
             isPlaying = true;
             player.loopPointReached += EndReached;
@@ -250,12 +222,6 @@ public class StageVideoManager : MonoBehaviour
         player.Stop();
         isSeeking = false;
         player.playbackSpeed = 1;
-        audioSource.playbackSpeed = 1;
-        if (requireaudio)
-        {
-            audioSource.errorReceived -= VideoPlayer_errorReceived;
-            audioSource.Stop();
-        }
     }
 
 
@@ -360,7 +326,7 @@ public class StageVideoManager : MonoBehaviour
 
 
 
-    private bool tryGetURL(int id, string result, bool withaudio, bool HDAudio)
+    private bool tryGetURL(int id, string result)
     {
         string temp = makeString(id);
         Debug.Log("FMVP: Searching For " + temp);
@@ -372,66 +338,13 @@ public class StageVideoManager : MonoBehaviour
             string finresult = result.Substring(start, end - start);
             //Debug.Log(" Result Video = " + finresult);
             videoUrl = finresult;
-            if (withaudio == false)
-            {
-                requireaudio = false;
-                return true;
-            }
         }
         else
         {
             Debug.LogError("FMVP: Video Search not found!");
             return false;
         }
-        if (withaudio == true)
-        {
-            if (HDAudio == true)
-            {
-                if (result.Contains(makeString(22)))
-                {
-                    Debug.Log("FMVP: Falling Back on HD Audio type 22");
-                    int first = result.IndexOf(makeString(22)) + makeString(22).Length;
-                    int start = result.IndexOf("url", first) + 7;
-                    int end = result.IndexOf("\"", start + 3);
-                    string finresult = result.Substring(start, end - start);
-                    //Debug.Log(" Result Audio = " + finresult);
-                    audioUrl = finresult;
-                    requireaudio = true;
-                    return true;
-                }
-            }
-            if (result.Contains(makeString(18)))
-            {
-                Debug.Log("FMVP: Falling Back on Standard Audio type 18");
-                int first = result.IndexOf(audiostring) + audiostring.Length;
-                int start = result.IndexOf("url", first) + 7;
-                int end = result.IndexOf("\"", start + 3);
-                string finresult = result.Substring(start, end - start);
-                //Debug.Log(" Result Audio = " + finresult);
-                audioUrl = finresult;
-                requireaudio = true;
-                return true;
-            }
-            else if (result.Contains(makeString(22)))
-            {
-                Debug.Log("FMVP: Falling Back on Standard Audio type 22");
-                int first = result.IndexOf(makeString(22)) + makeString(22).Length;
-                int start = result.IndexOf("url", first) + 7;
-                int end = result.IndexOf("\"", start + 3);
-                string finresult = result.Substring(start, end - start);
-                //Debug.Log(" Result Audio = " + finresult);
-                audioUrl = finresult;
-                requireaudio = true;
-                return true;
-            }
-            else
-            {
-                Debug.Log("FMVP: Failed to get backup audio for video setting");
-            }
-        }
-
-        Debug.LogError("FMVP: Video Search not found!");
-        return false;
+        return true;
 
     }
 
@@ -443,19 +356,10 @@ public class StageVideoManager : MonoBehaviour
     {
         switch (videoQuality)
         {
-            case VideoQuality.UltraHighQuality:
-                for (int i = 0; i <= UHDids.Length - 1; i++)
-                {
-                    if (tryGetURL(UHDids[i], result, true, true))
-                    {
-                        break;
-                    }
-                }
-                break;
             case VideoQuality.HighQuality:
                 for (int i = 0; i <= HDids.Length - 1; i++)
                 {
-                    if (tryGetURL(HDids[i], result, false, false))
+                    if (tryGetURL(HDids[i], result))
                     {
                         break;
                     }
@@ -464,7 +368,7 @@ public class StageVideoManager : MonoBehaviour
             case VideoQuality.LowQuality:
                 for (int i = 0; i <= LDids.Length - 1; i++)
                 {
-                    if (tryGetURL(LDids[i], result, false, false))
+                    if (tryGetURL(LDids[i], result))
                     {
                         break;
                     }
@@ -473,7 +377,7 @@ public class StageVideoManager : MonoBehaviour
             case VideoQuality.AUTOMATIC:
                 for (int i = 0; i <= HDids.Length - 1; i++)
                 {
-                    if (tryGetURL(HDids[i], result, false, false))
+                    if (tryGetURL(HDids[i], result))
                     {
                         break;
                     }
@@ -578,7 +482,6 @@ public enum VideoQuality
     AUTOMATIC,
     LowQuality,
     HighQuality,
-    UltraHighQuality,
 }
 
 public enum VideoFormatType

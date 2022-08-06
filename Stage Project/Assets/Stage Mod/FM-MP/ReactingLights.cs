@@ -4,9 +4,12 @@ using UnityEngine;
 using UnityEngine.Video;
 using sourcenity;
 
-public class ReactingLights : MonoBehaviour {
+public class ReactingLights : MonoBehaviour
+{
 
-	public VideoPlayer videoSource;
+    public bool UseAudioColor = false;
+    public AudioPeer AudioVisualiser;
+    public VideoPlayer videoSource;
     public Light[] lights;
 	public GameObject laserParent;
     public ShowLaserEffect[] lasers;
@@ -15,7 +18,8 @@ public class ReactingLights : MonoBehaviour {
     private bool enable;
     public GameObject Vlights;
     public Light[] vlights;
-	public GameObject[] objects;
+    public GameObject[] objects;
+    bool createTexture = false;
 
 
     public enum VideoSide{
@@ -30,24 +34,36 @@ public class ReactingLights : MonoBehaviour {
 
     private void Start()
     {
-        videoSource.frameReady += NewFrame;
-        videoSource.sendFrameReadyEvents = true;
+        if (!UseAudioColor)
+        {
+            videoSource.frameReady += NewFrame;
+            videoSource.sendFrameReadyEvents = true;
+        }
+
         ToggleLights(false);
+    }
+
+    public void Update()
+    {
+        if (UseAudioColor)
+        {
+
+        }
     }
 
     public void ToggleLights(bool On)
     {
         foreach (Light L in lights)
         {
-            L.enabled = On;
+            L.gameObject.SetActive(On);
         }
         foreach (Light L in vlights)
         {
-            L.enabled = On;
+            L.gameObject.SetActive(On);
         }
         foreach (ShowLaserEffect L in lasers)
         {
-            L.enabled = On;
+            L.gameObject.SetActive(On);
         }
     }
 
@@ -57,103 +73,117 @@ public class ReactingLights : MonoBehaviour {
         {
             vlights = Vlights.GetComponentsInChildren<Light>();
         }
-		if (laserParent != null)
+        if (laserParent != null)
         {
-			lasers = laserParent.GetComponentsInChildren<ShowLaserEffect>();
+            lasers = laserParent.GetComponentsInChildren<ShowLaserEffect>();
         }
     }
 
-    bool createTexture = false;
-	private void NewFrame(VideoPlayer vplayer, long frame)
+    private void SetAudioColor()
     {
-        if (!createTexture) {
-			createTexture = true;
-			switch (videoSide) {
-			case VideoSide.up:
-				tex = new Texture2D(videoSource.texture.width/2,20);
-				break;
-			case VideoSide.down:
-				tex = new Texture2D(videoSource.texture.width/2,20);
-				break;
-			case VideoSide.left:
-				tex = new Texture2D(20,videoSource.texture.height/2);
-				break;
-			case VideoSide.right:
-				tex = new Texture2D(20,videoSource.texture.height/2);
-				break;
-			case VideoSide.center:
-				tex = new Texture2D (videoSource.texture.height / 2, videoSource.texture.height / 2);
-				break;
-			}
-		}
-		RenderTexture.active = (RenderTexture)videoSource.texture;
-		switch (videoSide) {
-			case VideoSide.up:
-			tex.ReadPixels(new Rect((videoSource.texture.width/2),0,videoSource.texture.width/2,20),0,0);
-				break;
-			case VideoSide.down:
-			tex.ReadPixels(new Rect((videoSource.texture.width/2),videoSource.texture.height-20,videoSource.texture.width/2,20),0,0);
-				break;
-			case VideoSide.left:
-			tex.ReadPixels(new Rect(0,0,20,videoSource.texture.height/2),0,0);
-				break;
-			case VideoSide.right:
-			tex.ReadPixels(new Rect(videoSource.texture.width-20,0,20,videoSource.texture.height/2),0,0);
-				break;
-			case VideoSide.center:
-				tex.ReadPixels(new Rect((videoSource.texture.width/2)-(videoSource.texture.width/2),(videoSource.texture.height/2)-(videoSource.texture.height/2),videoSource.texture.width/2,videoSource.texture.height/2),0,0);
-				break;
-		}
+        Color temp = new Color(AudioVisualiser.AmplitudeBuffer * 255, AudioVisualiser.AmplitudeBuffer * 255, AudioVisualiser.AmplitudeBuffer * 255, AudioVisualiser.AmplitudeBuffer * 255);
+        ApplyColor(temp);
+    }
 
-		tex.Apply();
+
+    private void NewFrame(VideoPlayer vplayer, long frame)
+    {
+        if (!createTexture)
+        {
+            createTexture = true;
+            switch (videoSide)
+            {
+                case VideoSide.up:
+                    tex = new Texture2D(videoSource.texture.width / 2, 20);
+                    break;
+                case VideoSide.down:
+                    tex = new Texture2D(videoSource.texture.width / 2, 20);
+                    break;
+                case VideoSide.left:
+                    tex = new Texture2D(20, videoSource.texture.height / 2);
+                    break;
+                case VideoSide.right:
+                    tex = new Texture2D(20, videoSource.texture.height / 2);
+                    break;
+                case VideoSide.center:
+                    tex = new Texture2D(videoSource.texture.height / 2, videoSource.texture.height / 2);
+                    break;
+            }
+        }
+        RenderTexture.active = (RenderTexture)videoSource.texture;
+        switch (videoSide)
+        {
+            case VideoSide.up:
+                tex.ReadPixels(new Rect((videoSource.texture.width / 2), 0, videoSource.texture.width / 2, 20), 0, 0);
+                break;
+            case VideoSide.down:
+                tex.ReadPixels(new Rect((videoSource.texture.width / 2), videoSource.texture.height - 20, videoSource.texture.width / 2, 20), 0, 0);
+                break;
+            case VideoSide.left:
+                tex.ReadPixels(new Rect(0, 0, 20, videoSource.texture.height / 2), 0, 0);
+                break;
+            case VideoSide.right:
+                tex.ReadPixels(new Rect(videoSource.texture.width - 20, 0, 20, videoSource.texture.height / 2), 0, 0);
+                break;
+            case VideoSide.center:
+                tex.ReadPixels(new Rect((videoSource.texture.width / 2) - (videoSource.texture.width / 2), (videoSource.texture.height / 2) - (videoSource.texture.height / 2), videoSource.texture.width / 2, videoSource.texture.height / 2), 0, 0);
+                break;
+        }
+
+        tex.Apply();
         averageColor = AverageColorFromTexture(tex);
-		if (!videoSource.isPlaying)
-		{
-			averageColor = Color.clear;
-		}
-		foreach (Light light in lights)
+        ApplyColor(averageColor);
+    }
+
+    private void ApplyColor(Color color)
+    {
+        if (!videoSource.isPlaying)
+        {
+            color = Color.clear;
+        }
+        foreach (Light light in lights)
         {
             Color setcolor;
-            float a = averageColor.a;
-            if (averageColor.a <= 0.25)
+            float a = color.a;
+            if (color.a <= 0.25)
             {
                 a = 0;
             }
-            if (averageColor.grayscale <= 0.1)
+            if (color.grayscale <= 0.1)
             {
                 a = 0;
             }
-            setcolor = new Color(averageColor.r, averageColor.g, averageColor.b, a);
+            setcolor = new Color(color.r, color.g, color.b, a);
             light.color = setcolor;
         }
         foreach (ShowLaserEffect laser in lasers)
         {
             Color setcolor2;
-            float a2 = averageColor.a;
-            if (averageColor.a <= 0.5)
+            float a2 = color.a;
+            if (color.a <= 0.5)
             {
                 a2 = 0;
             }
-            if (averageColor.grayscale <= 0.1)
+            if (color.grayscale <= 0.1)
             {
                 a2 = 0;
             }
-            setcolor2 = new Color(averageColor.r, averageColor.g, averageColor.b, a2);
+            setcolor2 = new Color(color.r, color.g, color.b, a2);
             laser.mainColor = setcolor2;
         }
         foreach (Light light in vlights)
         {
             Color setcolor3;
-            float a3 = averageColor.a;
-            if (averageColor.a <= 0.25)
+            float a3 = color.a;
+            if (color.a <= 0.25)
             {
                 a3 = 0;
             }
-            if (averageColor.grayscale <= 0.1)
+            if (color.grayscale <= 0.1)
             {
                 a3 = 0;
             }
-            setcolor3 = new Color(averageColor.r, averageColor.g, averageColor.b, a3);
+            setcolor3 = new Color(color.r, color.g, color.b, a3);
             light.color = setcolor3;
         }
         if (Application.isPlaying)
@@ -163,7 +193,7 @@ public class ReactingLights : MonoBehaviour {
                 MeshRenderer mr = temp.GetComponent<MeshRenderer>();
                 foreach (Material mat in mr.sharedMaterials)
                 {
-                    mat.SetColor("_EmissionColor", averageColor);
+                    mat.SetColor("_EmissionColor", color);
                 }
             }
         }
@@ -179,6 +209,7 @@ public class ReactingLights : MonoBehaviour {
 		float r = 0;
 		float g = 0;
         float b = 0;
+        float a = 0;
 
         for (int i = 0; i < total; i++)
         {
@@ -189,9 +220,10 @@ public class ReactingLights : MonoBehaviour {
 
             b += texColors[i].b;
 
+            a += texColors[i].a;
         }
 
-        return new Color32((byte)(r / total) , (byte)(g / total) , (byte)(b / total) , 255);
+        return new Color32((byte)(r / total) , (byte)(g / total) , (byte)(b / total) , (byte)(a / total));
 
 	}
 }

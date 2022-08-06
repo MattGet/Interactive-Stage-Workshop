@@ -33134,8 +33134,6 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: High Quality
       m_Image: {fileID: 0}
-    - m_Text: '[BETA] Ultra High Quality'
-      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -40622,7 +40620,7 @@ VideoPlayer:
   m_AspectRatio: 2
   m_DataSource: 1
   m_PlaybackSpeed: 1
-  m_AudioOutputMode: 2
+  m_AudioOutputMode: 1
   m_TargetAudioSources:
   - {fileID: 0}
   m_DirectAudioVolumes:
@@ -77857,7 +77855,6 @@ MonoBehaviour:
   loopon: {fileID: 21300000, guid: 592038c9fd08f1c45a2d77e6ea4155f9, type: 3}
   volume: {fileID: 8799132731755688444}
   VidTime: {fileID: 3881309192582385850}
-  ScrubMissing: {fileID: 8128894091913450298}
   TimeValue: {fileID: 4118901521135796828}
   clicks: {fileID: 8300000, guid: ffa3e5ec997314045bd2b02f8471c83f, type: 3}
   errors: {fileID: 8300000, guid: 03345936b3cd3d3479949b8ca016494a, type: 3}
@@ -97776,8 +97773,10 @@ GameObject:
   - component: {fileID: 8799105850569238195}
   - component: {fileID: 3607354898564591097}
   - component: {fileID: 6405365676822221571}
+  - component: {fileID: 5177027153291949025}
   - component: {fileID: 593395588774114781}
   - component: {fileID: 2950976239572218751}
+  - component: {fileID: 8635515024455360660}
   m_Layer: 0
   m_Name: Stage Screen
   m_TagString: Untagged
@@ -97825,7 +97824,6 @@ MonoBehaviour:
   Screen: {fileID: 3290253367302993410}
   VideoURL: Enter Video URL Here
   player: {fileID: 9078744078986980804}
-  audioSource: {fileID: 2122203250716640973}
   Lights: {fileID: 6405365676822221571}
   LaserParent: {fileID: 2549079185416840812}
   Animators:
@@ -97850,7 +97848,6 @@ MonoBehaviour:
   videoFormat: 0
   menu: {fileID: 1677720139205077877}
   onlytriggeronce: 0
-  requireaudio: 0
   gotURL:
     m_PersistentCalls:
       m_Calls: []
@@ -97872,6 +97869,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ff0468e58bad8e4d8fb4f89ad46515e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseAudioColor: 1
+  AudioVisualiser: {fileID: 5177027153291949025}
   videoSource: {fileID: 9078744078986980804}
   lights:
   - {fileID: 4377500838783309564}
@@ -98008,6 +98007,49 @@ MonoBehaviour:
   - {fileID: 2660237769510737859}
   - {fileID: 1148460872453789853}
   videoSide: 4
+--- !u!114 &5177027153291949025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8167106994714311689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22a678d7dd5126d4d999fb3f4f8a3fc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AudioProfileFloat: 5
+  Amplitude: 0
+  AmplitudeBuffer: 0
+  AmplitudeHighest: 0
+  audioBand:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  audioBandBuffer:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  BufferDecrease:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
 --- !u!65 &593395588774114781
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -98054,6 +98096,102 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!82 &8635515024455360660
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8167106994714311689}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &8170069943581889744
 GameObject:
   m_ObjectHideFlags: 0

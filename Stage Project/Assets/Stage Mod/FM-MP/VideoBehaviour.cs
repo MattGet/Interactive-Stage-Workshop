@@ -38,7 +38,6 @@ public class VideoBehaviour : BaseFireworkBehavior, IHaveFuse, IIgnitable, IHave
         entitydata.Add<bool>("IsKinematic", component.isKinematic);
         entitydata.Add<string>("URL", StageManager.VideoURL);
         entitydata.Add<bool>("videoloop", StageManager.player.isLooping);
-        entitydata.Add<bool>("audioloop", StageManager.audioSource.isLooping);
         entitydata.Add<float>("videoVol", menu.volnumb);
         entitydata.Add<int>("vidQual", (int)StageManager.videoQuality);
         entitydata.Add<float>("VidTime", (float)StageManager.player.time);
@@ -64,7 +63,6 @@ public class VideoBehaviour : BaseFireworkBehavior, IHaveFuse, IIgnitable, IHave
         int temp2 = customComponentData.Get<int>("vidQual");
         menu.Quality.value = temp2;
         StageManager.player.isLooping = customComponentData.Get<bool>("videoloop");
-        StageManager.audioSource.isLooping = customComponentData.Get<bool>("audioloop");
         menu.volnumb = customComponentData.Get<float>("videoVol");
         StageManager.Quality(temp2);
         StageManager.OK(temp);
@@ -123,7 +121,7 @@ public class VideoBehaviour : BaseFireworkBehavior, IHaveFuse, IIgnitable, IHave
 
     protected override async UniTask LaunchInternalAsync(CancellationToken token)
     {
-        if (StageManager.isPlaying && StageManager.videoQuality != VideoQuality.UltraHighQuality)
+        if (StageManager.isPlaying)
         {
             StageManager.player.Play();
         }

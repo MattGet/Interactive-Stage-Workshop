@@ -26,7 +26,6 @@ public class InputMenu : MonoBehaviour
     public Sprite loopon;
     public Slider volume;
     public Slider VidTime;
-    public GameObject ScrubMissing;
     public TMP_Text TimeValue;
     private StageVideoManager videocontroller;
     private bool whiledisplay = false;
@@ -119,22 +118,6 @@ public class InputMenu : MonoBehaviour
     public void CQuality(int id)
     {
         videocontroller.Quality(Quality.value);
-        if (Quality.value == 3)
-        {
-            Debug.Log("FMVP: Disabling Video Scrubbing, Not Available on UHD Qualiy");
-            VidTime.gameObject.SetActive(false);
-            Back10.gameObject.SetActive(false);
-            Forward10.gameObject.SetActive(false);
-            ScrubMissing.SetActive(true);
-        }
-        else if (!VidTime.IsActive())
-        {
-            Debug.Log("Re Enabling Video Scrubbing");
-            VidTime.gameObject.SetActive(true);
-            Back10.gameObject.SetActive(true);
-            Forward10.gameObject.SetActive(true);
-            ScrubMissing.SetActive(false);
-        }
     }
 
 
@@ -142,7 +125,6 @@ public class InputMenu : MonoBehaviour
     {
         //Debug.Log("New Slider Value " + value);
         videocontroller.player.SetDirectAudioVolume(0, value);
-        videocontroller.audioSource.SetDirectAudioVolume(0, value);
         volnumb = value;
         //Debug.Log("confirmedslidervol = " + videocontroller.player.GetDirectAudioVolume(0) + "/" + volnumb);
     }
@@ -157,7 +139,6 @@ public class InputMenu : MonoBehaviour
                 loop.image.sprite = loopon;
                 //Debug.Log("Set to loop");
                 videocontroller.player.isLooping = true;
-                videocontroller.audioSource.isLooping = true;
             }
             else
             {
@@ -165,7 +146,6 @@ public class InputMenu : MonoBehaviour
                 loop.image.sprite = loopoff;
                 //Debug.Log("Stopped looping");
                 videocontroller.player.isLooping = false;
-                videocontroller.audioSource.isLooping = false;
             }
         }
         else
@@ -180,10 +160,6 @@ public class InputMenu : MonoBehaviour
         {
             return;
         }
-        if (videocontroller.videoQuality == VideoQuality.UltraHighQuality)
-        {
-            return;
-        }
         Playclick();
         videocontroller.player.time = videocontroller.player.time - 10;
     }
@@ -191,10 +167,6 @@ public class InputMenu : MonoBehaviour
     public void CForward()
     {
         if (videocontroller == null)
-        {
-            return;
-        }
-        if (videocontroller.videoQuality == VideoQuality.UltraHighQuality)
         {
             return;
         }
@@ -218,13 +190,8 @@ public class InputMenu : MonoBehaviour
             else if (videocontroller.player.isPaused)
             {
                 videocontroller.player.Play();
-                if (videocontroller.requireaudio)
-                {
-                    //Debug.Log("Starting from pause");
-                    videocontroller.audioSource.Play();
-                    Playclick();
-                }
                 lights.ToggleLights(true);
+                Playclick();
                 videocontroller.isPlaying = true;
             }
             else
@@ -273,11 +240,6 @@ public class InputMenu : MonoBehaviour
                 videocontroller.player.playbackSpeed = 1;
                 videocontroller.isSeeking = false;
                 Playclick();
-                if (videocontroller.requireaudio || videocontroller.audioSource.isPlaying)
-                {
-                    videocontroller.audioSource.Pause();
-                    videocontroller.audioSource.playbackSpeed = 1;
-                }
             }
             else
             {
@@ -328,10 +290,6 @@ public class InputMenu : MonoBehaviour
     public void CScrubber(float time)
     {
         if (videocontroller == null)
-        {
-            return;
-        }
-        if (videocontroller.videoQuality == VideoQuality.UltraHighQuality)
         {
             return;
         }
