@@ -27,7 +27,8 @@ MonoBehaviour:
     modAuthor: Panini
     modVersion: 1.0.0
     modDescription: 
-    modAssetPath: C:/Users/matde/Unity Projects/Stage Project/Assets/Stage Mod
+    modAssetPath: C:/Users/matde/OneDrive/Documents/GitHub/Interactive-Stage-Workshop/Stage
+      Project/Assets/Stage Mod
     modExportPath: C:/Users/matde/AppData/LocalLow/Laumania ApS/Fireworks Mania/Mods
     modIcon: {fileID: 0}
   logLevel: 3
