@@ -36,7 +36,10 @@ public class InputMenu : MonoBehaviour
     public ReactingLights lights;
     public Slider SAlpha;
     public Slider SColor;
+    public Slider SBuffer;
+    public Slider SEnhancer;
     public Button ToggleMode;
+    public TMP_Dropdown ColorMode;
 
 
     private void Awake()
@@ -110,6 +113,8 @@ public class InputMenu : MonoBehaviour
 
         SAlpha.value = lights.AlphaMulti;
         SColor.value = lights.ColorMulti;
+        SBuffer.value = lights.AudioVisualiser.BufferMultiplier;
+        SEnhancer.value = lights.ColorEnhancer;
         if (lights.UseAudioColor)
         {
             ToggleMode.image.color = Color.magenta;
@@ -143,6 +148,16 @@ public class InputMenu : MonoBehaviour
         lights.ColorMulti = color;
     }
 
+    public void SetBufferM(float buff)
+    {
+        lights.AudioVisualiser.BufferMultiplier = buff;
+    }
+
+    public void SetEnhancer(float Enh)
+    {
+        lights.ColorEnhancer = Enh;
+    }
+
     public void StartTime()
     {
         if (videocontroller.player != null)
@@ -156,6 +171,11 @@ public class InputMenu : MonoBehaviour
     public void CQuality(int id)
     {
         videocontroller.Quality(Quality.value);
+    }
+
+    public void CColorMode(int id)
+    {
+        lights.SetColorMode(id);
     }
 
 

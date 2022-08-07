@@ -11,6 +11,7 @@ public class AudioPeer : MonoBehaviour
     public float Amplitude;
     public float AmplitudeBuffer;
     public float AmplitudeHighest;
+    public float BufferMultiplier = 1;
 
     public float[] audioBand = new float[8];
     public float[] audioBandBuffer = new float[8];
@@ -88,12 +89,12 @@ public class AudioPeer : MonoBehaviour
             if (frequencyBands[g] > bandBuffer[g])
             {
                 bandBuffer[g] = frequencyBands[g];
-                BufferDecrease[g] = 0.005f;
+                BufferDecrease[g] = (0.005f * BufferMultiplier);
             }
             if (frequencyBands[g] < bandBuffer[g])
             {
                 bandBuffer[g] -= BufferDecrease[g];
-                BufferDecrease[g] *= 1.2f;
+                BufferDecrease[g] *= (1.2f * BufferMultiplier);
             }
         }
     }

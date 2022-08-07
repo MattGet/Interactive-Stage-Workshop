@@ -26,6 +26,21 @@ public class ReactingLights : MonoBehaviour
     [Range(0, 1)]
     public float ColorMulti = 1;
     public float volumeMulti = 1;
+    public float ColorEnhancer = 1.5f;
+    public ColorMode colorMode = ColorMode.One;
+
+
+
+    public enum ColorMode { 
+        One,
+        Two,
+        Three,
+        Four,
+        Five,
+        Six,
+    }
+
+
 
 
     public enum VideoSide{
@@ -70,6 +85,35 @@ public class ReactingLights : MonoBehaviour
         }
     }
 
+    public void SetColorMode(int input)
+    {
+        switch (input)
+        {
+            case 1:
+                colorMode = ColorMode.One;
+                break;
+            case 2:
+                colorMode = ColorMode.Two;
+                break;
+            case 3:
+                colorMode = ColorMode.Three;
+                break;
+            case 4:
+                colorMode = ColorMode.Four;
+                break;
+            case 5:
+                colorMode = ColorMode.Five;
+                break;
+            case 6:
+                colorMode = ColorMode.Six;
+                break;
+            default:
+                colorMode = ColorMode.One;
+                break;
+        }
+
+    }
+
     private void OnValidate()
     {
         if (Vlights != null)
@@ -93,14 +137,35 @@ public class ReactingLights : MonoBehaviour
         {
             if (values[i] == values.Max())
             {
-                values[i] = Mathf.Clamp01(values[i] * 1.5f);
+                values[i] = Mathf.Clamp01(values[i] * ColorEnhancer);
             }
             if (values[i] < 0.01)
             {
                 values[i] = 0;
             }
         }
-        Color temp = new Color(values[0], values[1] , values[2] , Avalue);
+        Color temp = new Color(values[0], values[1], values[2], Avalue);
+        switch (colorMode)
+        {
+            case ColorMode.One:
+                temp = new Color(values[0], values[1], values[2], Avalue);
+                break;
+            case ColorMode.Two:
+                temp = new Color(values[1], values[0], values[2], Avalue);
+                break;
+            case ColorMode.Three:
+                temp = new Color(values[1], values[2], values[0], Avalue);
+                break;
+            case ColorMode.Four:
+                temp = new Color(values[0], values[2], values[1], Avalue);
+                break;
+            case ColorMode.Five:
+                temp = new Color(values[2], values[0], values[1], Avalue);
+                break;
+            case ColorMode.Six:
+                temp = new Color(values[2], values[1], values[0], Avalue);
+                break;
+        }
         //Debug.Log($"Applying Color, R: {avrg1}, G: {avrg2}, B: {avrg3}, A: {AudioVisualiser.AmplitudeBuffer * AlphaMulti}");
         ApplyColor(temp);
     }
