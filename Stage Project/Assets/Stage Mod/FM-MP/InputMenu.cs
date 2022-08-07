@@ -34,6 +34,8 @@ public class InputMenu : MonoBehaviour
     public AudioSource audioplay;
     public float volnumb = 1;
     public ReactingLights lights;
+    public Slider Alpha;
+    public Slider Color;
 
     private void Awake()
     {
@@ -103,6 +105,18 @@ public class InputMenu : MonoBehaviour
         }
 
         CQuality(Quality.value);
+
+        Color.value = lights.ColorMulti;
+        Alpha.value = lights.AlphaMulti;
+    }
+
+    public void SetColor(float color)
+    {
+        lights.ColorMulti = color;
+    }
+    public void SetAlpha(float color)
+    {
+        lights.AlphaMulti = color;
     }
 
     public void StartTime()

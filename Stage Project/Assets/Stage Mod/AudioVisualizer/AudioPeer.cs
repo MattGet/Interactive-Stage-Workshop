@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class AudioPeer : MonoBehaviour
 {
-    AudioSource _audioSource;
+    public AudioSource _audioSource;
 
     public float AudioProfileFloat;
     public float Amplitude;

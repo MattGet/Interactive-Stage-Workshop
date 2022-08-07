@@ -20,6 +20,10 @@ public class ReactingLights : MonoBehaviour
     public Light[] vlights;
     public GameObject[] objects;
     bool createTexture = false;
+    [Range(0, 255)]
+    public float AlphaMulti = 255;
+    [Range(0, 255)]
+    public float ColorMulti = 255;
 
 
     public enum VideoSide{
@@ -34,11 +38,8 @@ public class ReactingLights : MonoBehaviour
 
     private void Start()
     {
-        if (!UseAudioColor)
-        {
             videoSource.frameReady += NewFrame;
             videoSource.sendFrameReadyEvents = true;
-        }
 
         ToggleLights(false);
     }
@@ -47,7 +48,7 @@ public class ReactingLights : MonoBehaviour
     {
         if (UseAudioColor)
         {
-
+            SetAudioColor();
         }
     }
 
@@ -81,13 +82,21 @@ public class ReactingLights : MonoBehaviour
 
     private void SetAudioColor()
     {
-        Color temp = new Color(AudioVisualiser.AmplitudeBuffer * 255, AudioVisualiser.AmplitudeBuffer * 255, AudioVisualiser.AmplitudeBuffer * 255, AudioVisualiser.AmplitudeBuffer * 255);
+        float avrg1 = ((AudioVisualiser.audioBandBuffer[0] + AudioVisualiser.audioBandBuffer[1] + AudioVisualiser.audioBandBuffer[2]) / 3) * ColorMulti;
+        float avrg2 = ((AudioVisualiser.audioBandBuffer[3] + AudioVisualiser.audioBandBuffer[4] + AudioVisualiser.audioBandBuffer[5]) / 3) * ColorMulti;
+        float avrg3 = ((AudioVisualiser.audioBandBuffer[6] + AudioVisualiser.audioBandBuffer[7]) / 2) * ColorMulti;
+        if (avrg1 < 0.1f) avrg1 = 0;
+        if (avrg2 < 0.1f) avrg2 = 0;
+        if (avrg3 < 0.1f) avrg3 = 0;
+        Color temp = new Color(avrg1 , avrg2 , avrg3 , AudioVisualiser.AmplitudeBuffer * AlphaMulti);
+        Debug.Log($"Applying Color, R: {avrg1}, G: {avrg2}, B: {avrg3}, A: {AudioVisualiser.AmplitudeBuffer * AlphaMulti}");
         ApplyColor(temp);
     }
 
 
     private void NewFrame(VideoPlayer vplayer, long frame)
     {
+        if (UseAudioColor) return;
         if (!createTexture)
         {
             createTexture = true;
