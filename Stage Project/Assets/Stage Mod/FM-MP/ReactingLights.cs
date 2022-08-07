@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 using sourcenity;
+using System.Linq;
 
 public class ReactingLights : MonoBehaviour
 {
@@ -20,10 +21,11 @@ public class ReactingLights : MonoBehaviour
     public Light[] vlights;
     public GameObject[] objects;
     bool createTexture = false;
-    [Range(0, 255)]
-    public float AlphaMulti = 255;
-    [Range(0, 255)]
-    public float ColorMulti = 255;
+    [Range(0, 1)]
+    public float AlphaMulti = 1;
+    [Range(0, 1)]
+    public float ColorMulti = 1;
+    public float volumeMulti = 1;
 
 
     public enum VideoSide{
@@ -82,14 +84,24 @@ public class ReactingLights : MonoBehaviour
 
     private void SetAudioColor()
     {
-        float avrg1 = ((AudioVisualiser.audioBandBuffer[0] + AudioVisualiser.audioBandBuffer[1] + AudioVisualiser.audioBandBuffer[2]) / 3) * ColorMulti;
-        float avrg2 = ((AudioVisualiser.audioBandBuffer[3] + AudioVisualiser.audioBandBuffer[4] + AudioVisualiser.audioBandBuffer[5]) / 3) * ColorMulti;
-        float avrg3 = ((AudioVisualiser.audioBandBuffer[6] + AudioVisualiser.audioBandBuffer[7]) / 2) * ColorMulti;
-        if (avrg1 < 0.1f) avrg1 = 0;
-        if (avrg2 < 0.1f) avrg2 = 0;
-        if (avrg3 < 0.1f) avrg3 = 0;
-        Color temp = new Color(avrg1 , avrg2 , avrg3 , AudioVisualiser.AmplitudeBuffer * AlphaMulti);
-        Debug.Log($"Applying Color, R: {avrg1}, G: {avrg2}, B: {avrg3}, A: {AudioVisualiser.AmplitudeBuffer * AlphaMulti}");
+        float avrg1 = Mathf.Clamp01(((AudioVisualiser.audioBandBuffer[0] + AudioVisualiser.audioBandBuffer[1] + AudioVisualiser.audioBandBuffer[2]) / 3) * volumeMulti * ColorMulti);
+        float avrg2 = Mathf.Clamp01(((AudioVisualiser.audioBandBuffer[3] + AudioVisualiser.audioBandBuffer[4] + AudioVisualiser.audioBandBuffer[5]) / 3) * volumeMulti * ColorMulti);
+        float avrg3 = Mathf.Clamp01(((AudioVisualiser.audioBandBuffer[6] + AudioVisualiser.audioBandBuffer[7]) / 2) * volumeMulti * ColorMulti);
+        float Avalue = Mathf.Clamp01(AudioVisualiser.AmplitudeBuffer * AlphaMulti * volumeMulti);
+        float[] values = new float[3] { avrg1, avrg2, avrg3 };
+        for (int i = 0; i < 3; i++)
+        {
+            if (values[i] == values.Max())
+            {
+                values[i] = Mathf.Clamp01(values[i] * 1.5f);
+            }
+            if (values[i] < 0.01)
+            {
+                values[i] = 0;
+            }
+        }
+        Color temp = new Color(values[0], values[1] , values[2] , Avalue);
+        //Debug.Log($"Applying Color, R: {avrg1}, G: {avrg2}, B: {avrg3}, A: {AudioVisualiser.AmplitudeBuffer * AlphaMulti}");
         ApplyColor(temp);
     }
 

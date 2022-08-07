@@ -34,8 +34,10 @@ public class InputMenu : MonoBehaviour
     public AudioSource audioplay;
     public float volnumb = 1;
     public ReactingLights lights;
-    public Slider Alpha;
-    public Slider Color;
+    public Slider SAlpha;
+    public Slider SColor;
+    public Button ToggleMode;
+
 
     private void Awake()
     {
@@ -106,17 +108,39 @@ public class InputMenu : MonoBehaviour
 
         CQuality(Quality.value);
 
-        Color.value = lights.ColorMulti;
-        Alpha.value = lights.AlphaMulti;
+        SAlpha.value = lights.AlphaMulti;
+        SColor.value = lights.ColorMulti;
+        if (lights.UseAudioColor)
+        {
+            ToggleMode.image.color = Color.magenta;
+        }
+        else
+        {
+            ToggleMode.image.color = Color.cyan;
+        }
     }
 
-    public void SetColor(float color)
+    public void ToggleColorMode()
     {
-        lights.ColorMulti = color;
+        if (lights.UseAudioColor)
+        {
+            lights.UseAudioColor = false;
+            ToggleMode.image.color = Color.cyan;
+        }
+        else
+        {
+            lights.UseAudioColor = true;
+            ToggleMode.image.color = Color.magenta;
+        }
     }
     public void SetAlpha(float color)
     {
         lights.AlphaMulti = color;
+    }
+
+    public void SetColorM(float color)
+    {
+        lights.ColorMulti = color;
     }
 
     public void StartTime()
@@ -138,8 +162,17 @@ public class InputMenu : MonoBehaviour
     public void Svolume(float value)
     {
         //Debug.Log("New Slider Value " + value);
-        videocontroller.player.SetDirectAudioVolume(0, value);
+        videocontroller.player.GetTargetAudioSource(0).volume = value;
         volnumb = value;
+        if (value == 0)
+        {
+            lights.volumeMulti = 0;
+        }
+        else
+        {
+            lights.volumeMulti = 1 / value;
+        }
+
         //Debug.Log("confirmedslidervol = " + videocontroller.player.GetDirectAudioVolume(0) + "/" + volnumb);
     }
 
