@@ -22310,9 +22310,9 @@ MonoBehaviour:
   m_FillRect: {fileID: 7465468416041606547}
   m_HandleRect: {fileID: 2389111733199861140}
   m_Direction: 0
-  m_MinValue: 1
-  m_MaxValue: 5
-  m_WholeNumbers: 1
+  m_MinValue: 0.75
+  m_MaxValue: 1.25
+  m_WholeNumbers: 0
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
@@ -34258,7 +34258,19 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1677720139205077877}
+        m_TargetAssemblyTypeName: InputMenu, Assembly-CSharp
+        m_MethodName: CQuality
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!1 &2986916590836917574
 GameObject:
@@ -54986,7 +54998,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2552284365765087600}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1677720139205077877}
+        m_TargetAssemblyTypeName: InputMenu, Assembly-CSharp
+        m_MethodName: CForward
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4076604716476637714
 GameObject:
   m_ObjectHideFlags: 0
@@ -59793,7 +59817,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1677720139205077877}
+        m_TargetAssemblyTypeName: InputMenu, Assembly-CSharp
+        m_MethodName: CLoop
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &4540657421676168387
 GameObject:
@@ -62291,7 +62327,19 @@ MonoBehaviour:
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1677720139205077877}
+        m_TargetAssemblyTypeName: InputMenu, Assembly-CSharp
+        m_MethodName: Svolume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4828532597784070224
 GameObject:
   m_ObjectHideFlags: 0
@@ -69877,7 +69925,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 5444703258322980162}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 2
   m_WholeNumbers: 0
   m_Value: 1
   m_OnValueChanged:
@@ -72024,7 +72072,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1255915247257419724}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1677720139205077877}
+        m_TargetAssemblyTypeName: InputMenu, Assembly-CSharp
+        m_MethodName: CPlay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5711676636160222612
 GameObject:
   m_ObjectHideFlags: 0
@@ -73836,7 +73896,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6366473219847798032}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1677720139205077877}
+        m_TargetAssemblyTypeName: InputMenu, Assembly-CSharp
+        m_MethodName: CancelClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6005902385915703011
 GameObject:
   m_ObjectHideFlags: 0
@@ -74255,7 +74327,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1521865509607642826}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1677720139205077877}
+        m_TargetAssemblyTypeName: InputMenu, Assembly-CSharp
+        m_MethodName: CBack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6057894468439362223
 GameObject:
   m_ObjectHideFlags: 0
@@ -75938,7 +76022,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8116585126530093096}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1677720139205077877}
+        m_TargetAssemblyTypeName: InputMenu, Assembly-CSharp
+        m_MethodName: CStop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6238073846750184805
 GameObject:
   m_ObjectHideFlags: 0
@@ -95515,7 +95611,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4800581429524498932}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1677720139205077877}
+        m_TargetAssemblyTypeName: InputMenu, Assembly-CSharp
+        m_MethodName: CPause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7647199201048573288
 GameObject:
   m_ObjectHideFlags: 0
@@ -98166,7 +98274,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Color Intensity
+  m_text: Light Intensity
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -98193,7 +98301,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19.55
+  m_fontSize: 20.25
   m_fontSizeBase: 26
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -101491,6 +101599,7 @@ MonoBehaviour:
   - {fileID: 7270566542726604105}
   - {fileID: 9110431366266717774}
   AnimtorsClip: {fileID: 7400000, guid: 6e1480f058cb6d142a50d6ad83e21da7, type: 2}
+  UseAnimations: 1
   playOnStart: 0
   generateUsingClient: 1
   videoQuality: 0
@@ -101655,11 +101764,14 @@ MonoBehaviour:
   - {fileID: 5527935507930181526}
   - {fileID: 2660237769510737859}
   - {fileID: 1148460872453789853}
-  AlphaMulti: 255
+  AlphaMulti: 1
   ColorMulti: 1
   volumeMulti: 1
   ColorEnhancer: 1.5
   colorMode: 0
+  UseLights: 1
+  UseLasers: 1
+  UseObjects: 1
   videoSide: 4
 --- !u!114 &5177027153291949025
 MonoBehaviour:
@@ -105479,7 +105591,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7007476117066821633}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1677720139205077877}
+        m_TargetAssemblyTypeName: InputMenu, Assembly-CSharp
+        m_MethodName: PasteClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8502374255274084413
 GameObject:
   m_ObjectHideFlags: 0
@@ -107646,7 +107770,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6926057843191702026}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1677720139205077877}
+        m_TargetAssemblyTypeName: InputMenu, Assembly-CSharp
+        m_MethodName: OKClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8834804078562969957
 GameObject:
   m_ObjectHideFlags: 0

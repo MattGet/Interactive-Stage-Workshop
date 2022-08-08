@@ -78,17 +78,6 @@ public class InputMenu : MonoBehaviour
         whiledisplay = true;
         videocontroller = start;
 
-        OK.onClick.AddListener(OKClick);
-        cancel.onClick.AddListener(CancelClick);
-        Paste.onClick.AddListener(PasteClick);
-        play.onClick.AddListener(CPlay);
-        pause.onClick.AddListener(CPause);
-        stop.onClick.AddListener(CStop);
-        loop.onValueChanged.AddListener(CLoop);
-        Back10.onClick.AddListener(CBack);
-        Forward10.onClick.AddListener(CForward);
-        Quality.onValueChanged.AddListener(CQuality);
-
         videocontroller.VideoPrepared.AddListener(StartTime);
 
         Messenger.Broadcast(new MessengerEventChangeUIMode(true, false));
@@ -103,7 +92,6 @@ public class InputMenu : MonoBehaviour
         }
         volume.value = volnumb;
         Svolume(volnumb);
-        volume.onValueChanged.AddListener(Svolume);
         if (videocontroller.player.isPrepared || videocontroller.isPlaying)
         {
             StartTime();
@@ -170,7 +158,7 @@ public class InputMenu : MonoBehaviour
 
     public void CQuality(int id)
     {
-        videocontroller.Quality(Quality.value);
+        videocontroller.Quality(id);
     }
 
     public void CColorMode(int id)
@@ -395,20 +383,18 @@ public class InputMenu : MonoBehaviour
     {
         whiledisplay = false;
         Messenger.Broadcast(new MessengerEventChangeUIMode(false, true));
-
-        OK.onClick.RemoveAllListeners();
-        cancel.onClick.RemoveAllListeners();
-        Paste.onClick.RemoveAllListeners();
-        play.onClick.RemoveAllListeners();
-        pause.onClick.RemoveAllListeners();
-        stop.onClick.RemoveAllListeners();
-        Back10.onClick.RemoveAllListeners();
-        Forward10.onClick.RemoveAllListeners();
-        loop.onValueChanged.RemoveAllListeners();
         if (videocontroller != null)
         {
             videocontroller.VideoPrepared.RemoveListener(StartTime);
         }
         gameObject.SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+        if (videocontroller != null)
+        {
+            videocontroller.VideoPrepared.RemoveListener(StartTime);
+        }
     }
 }

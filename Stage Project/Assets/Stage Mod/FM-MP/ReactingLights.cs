@@ -21,13 +21,16 @@ public class ReactingLights : MonoBehaviour
     public Light[] vlights;
     public GameObject[] objects;
     bool createTexture = false;
-    [Range(0, 1)]
+    [Range(0, 2)]
     public float AlphaMulti = 1;
     [Range(0, 1)]
     public float ColorMulti = 1;
     public float volumeMulti = 1;
     public float ColorEnhancer = 1.5f;
     public ColorMode colorMode = ColorMode.One;
+    public bool UseLights = true;
+    public bool UseLasers = true;
+    public bool UseObjects = true;
 
 
 
@@ -55,9 +58,12 @@ public class ReactingLights : MonoBehaviour
 
     private void Start()
     {
-            videoSource.frameReady += NewFrame;
-            videoSource.sendFrameReadyEvents = true;
+        videoSource.frameReady += NewFrame;
+        videoSource.sendFrameReadyEvents = true;
+    }
 
+    private void Awake()
+    {
         ToggleLights(false);
     }
 
@@ -67,6 +73,11 @@ public class ReactingLights : MonoBehaviour
         {
             SetAudioColor();
         }
+    }
+
+    private void OnDestroy()
+    {
+        videoSource.frameReady -= NewFrame;
     }
 
     public void ToggleLights(bool On)
@@ -242,47 +253,58 @@ public class ReactingLights : MonoBehaviour
             setcolor = new Color(color.r, color.g, color.b, a);
             light.color = setcolor;
         }
-        foreach (ShowLaserEffect laser in lasers)
+        if (UseLasers)
         {
-            Color setcolor2;
-            float a2 = color.a;
-            if (color.a <= 0.5)
+            foreach (ShowLaserEffect laser in lasers)
             {
-                a2 = 0;
-            }
-            if (color.grayscale <= 0.1)
-            {
-                a2 = 0;
-            }
-            setcolor2 = new Color(color.r, color.g, color.b, a2);
-            laser.mainColor = setcolor2;
-        }
-        foreach (Light light in vlights)
-        {
-            Color setcolor3;
-            float a3 = color.a;
-            if (color.a <= 0.25)
-            {
-                a3 = 0;
-            }
-            if (color.grayscale <= 0.1)
-            {
-                a3 = 0;
-            }
-            setcolor3 = new Color(color.r, color.g, color.b, a3);
-            light.color = setcolor3;
-        }
-        if (Application.isPlaying)
-        {
-            foreach (GameObject temp in objects)
-            {
-                MeshRenderer mr = temp.GetComponent<MeshRenderer>();
-                foreach (Material mat in mr.sharedMaterials)
+                Color setcolor2;
+                float a2 = color.a;
+                if (color.a <= 0.5)
                 {
-                    mat.SetColor("_EmissionColor", color);
+                    a2 = 0;
+                }
+                if (color.grayscale <= 0.1)
+                {
+                    a2 = 0;
+                }
+                setcolor2 = new Color(color.r, color.g, color.b, a2);
+                laser.mainColor = setcolor2;
+            }
+        }
+        
+        if (UseLights)
+        {
+            foreach (Light light in vlights)
+            {
+                Color setcolor3;
+                float a3 = color.a;
+                if (color.a <= 0.25)
+                {
+                    a3 = 0;
+                }
+                if (color.grayscale <= 0.1)
+                {
+                    a3 = 0;
+                }
+                setcolor3 = new Color(color.r, color.g, color.b, a3);
+                light.color = setcolor3;
+            }
+        }
+        if (UseObjects)
+        {
+            if (Application.isPlaying)
+            {
+                foreach (GameObject temp in objects)
+                {
+                    MeshRenderer mr = temp.GetComponent<MeshRenderer>();
+                    foreach (Material mat in mr.sharedMaterials)
+                    {
+                        mat.SetColor("_EmissionColor", color);
+                    }
                 }
             }
         }
+        
     }
 
     Color32 AverageColorFromTexture(Texture2D tex)

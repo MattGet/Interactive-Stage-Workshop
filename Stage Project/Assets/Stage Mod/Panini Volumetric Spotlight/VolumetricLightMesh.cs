@@ -17,6 +17,8 @@ public class VolumetricLightMesh : MonoBehaviour
     public Material LightMat;
     private Material LightInstance;
     public GameObject LightObject;
+    private float ShadowRadius;
+    private float ShadowRange;
 
     //[SerializeField]
     private MeshFilter filter;
@@ -67,10 +69,18 @@ public class VolumetricLightMesh : MonoBehaviour
 
         float range = spotlight.range * (this.gameObject.transform.localScale.magnitude / this.gameObject.transform.lossyScale.magnitude);
         float radius = Mathf.Tan(spotlight.spotAngle * 0.5f * Mathf.Deg2Rad) * range;
-        if (LightShape == Shape.Cone)
+        if (range != ShadowRange || radius != ShadowRadius)
         {
-            mesh = CreateCone(24, radius, range);
+            if (LightShape == Shape.Cone)
+            {
+                if (mesh != null && Application.isPlaying) Destroy(mesh);
+                else if (mesh != null && Application.isEditor) DestroyImmediate(mesh);
+                mesh = CreateCone(24, radius, range);
+            }
+            ShadowRadius = radius;
+            ShadowRange = range;
         }
+
 
         if (LightMat != null)
         {
@@ -158,17 +168,5 @@ public class VolumetricLightMesh : MonoBehaviour
         mesh.RecalculateNormals();
 
         return mesh;
-    }
-
-
-    void OnDestroy()
-    {
-#if UNITY_EDITOR
-        if (Event.current != null && Event.current.commandName == "Delete")
-        {
-            string path = AssetDatabase.GetAssetPath(LightInstance);
-            AssetDatabase.DeleteAsset(path);
-        }
-#endif
     }
 }

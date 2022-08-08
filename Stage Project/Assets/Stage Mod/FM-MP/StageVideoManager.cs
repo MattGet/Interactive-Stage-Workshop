@@ -19,6 +19,7 @@ public class StageVideoManager : MonoBehaviour
     public GameObject LaserParent;
     public List<Playanim> Animators = new List<Playanim>();
     public AnimationClip AnimtorsClip;
+    public bool UseAnimations = false;
 
     public bool playOnStart = false;
     public bool generateUsingClient;
@@ -141,10 +142,14 @@ public class StageVideoManager : MonoBehaviour
 
     public void ToggleAnimations()
     {
-        foreach(Playanim anim in Animators)
+        if (UseAnimations)
         {
-            anim.ToggleAnim(AnimtorsClip);
+            foreach (Playanim anim in Animators)
+            {
+                anim.ToggleAnim(AnimtorsClip);
+            }
         }
+       
     }
 
     IEnumerator Startvideo(bool andplay)

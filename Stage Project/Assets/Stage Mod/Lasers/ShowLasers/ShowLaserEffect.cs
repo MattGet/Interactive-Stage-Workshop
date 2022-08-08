@@ -8,7 +8,7 @@ using UnityEngine.Serialization;
 
 namespace sourcenity {
 
-    [ExecuteInEditMode]
+    //[ExecuteInEditMode]
     public class ShowLaserEffect : MonoBehaviour {
 
         /** Enumerations **/
