@@ -80863,7 +80863,7 @@ MonoBehaviour:
   Back10: {fileID: 392347935317164507}
   Forward10: {fileID: 3541912575469623244}
   loop: {fileID: 3889049009015904600}
-  loopoff: {fileID: 21300000, guid: 1735df39815aa48468c15a2679980b4c, type: 3}
+  loopoff: {fileID: 21300000, guid: 772cc86991461484dbd735f61843747d, type: 3}
   loopon: {fileID: 21300000, guid: 592038c9fd08f1c45a2d77e6ea4155f9, type: 3}
   volume: {fileID: 8799132731755688444}
   VidTime: {fileID: 3881309192582385850}
@@ -105507,8 +105507,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -948, y: 99.00003}
-  m_SizeDelta: {x: 50, y: 50}
+  m_AnchoredPosition: {x: -968, y: 99.00003}
+  m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6311178687578144767
 CanvasRenderer:
