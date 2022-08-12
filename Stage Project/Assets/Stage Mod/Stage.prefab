@@ -84209,8 +84209,8 @@ MonoBehaviour:
   clicks: {fileID: 8300000, guid: ffa3e5ec997314045bd2b02f8471c83f, type: 3}
   errors: {fileID: 8300000, guid: 03345936b3cd3d3479949b8ca016494a, type: 3}
   audioplay: {fileID: 4430416873543919264}
-  ToggleOn: {fileID: 0}
-  ToggleOff: {fileID: 0}
+  ToggleOn: {fileID: 21300000, guid: c771258b99e39f74ca26ab48980cd9a9, type: 3}
+  ToggleOff: {fileID: 21300000, guid: c03773fe82dedfa4e815f2685050213e, type: 3}
   play: {fileID: 8527690769161900090}
   pause: {fileID: 1808404952134512577}
   stop: {fileID: 905023733998700688}
@@ -84218,27 +84218,27 @@ MonoBehaviour:
   Forward10: {fileID: 3541912575469623244}
   loop: {fileID: 3889049009015904600}
   loopoff: {fileID: 21300000, guid: 772cc86991461484dbd735f61843747d, type: 3}
-  loopon: {fileID: 21300000, guid: 592038c9fd08f1c45a2d77e6ea4155f9, type: 3}
+  loopon: {fileID: 21300000, guid: 02e094ccc66dbd34193154c3ea5d0540, type: 3}
   volume: {fileID: 8799132731755688444}
   VidTime: {fileID: 3881309192582385850}
   TimeValue: {fileID: 4118901521135796828}
   volnumb: 1
   lights: {fileID: 6405365676822221571}
   ToggleMode: {fileID: 7941061075350980772}
-  LightsToggle: {fileID: 0}
-  LasersToggle: {fileID: 0}
-  LightSettings: {fileID: 0}
+  LightsToggle: {fileID: 1350495145100838316}
+  LasersToggle: {fileID: 51418132333950039}
+  LightSettings: {fileID: 2284206192610091350}
   SAlpha: {fileID: 8366179748320458488}
   SColor: {fileID: 4115540771189645784}
   SBuffer: {fileID: 6426461979487975680}
   SEnhancer: {fileID: 5940721087005052100}
   ColorMode: {fileID: 995048480229091529}
-  LaserSettings: {fileID: 0}
-  SLAlpha: {fileID: 0}
-  SLColor: {fileID: 0}
-  SLBuffer: {fileID: 0}
-  SLEnhancer: {fileID: 0}
-  SLColorMode: {fileID: 0}
+  LaserSettings: {fileID: 4679859487176403005}
+  SLAlpha: {fileID: 2129942548756660834}
+  SLColor: {fileID: 8453467958861597372}
+  SLBuffer: {fileID: 6729506391906189035}
+  SLEnhancer: {fileID: 7448185734493388540}
+  SLColorMode: {fileID: 3392359567901391078}
 --- !u!82 &4430416873543919264
 AudioSource:
   m_ObjectHideFlags: 0
