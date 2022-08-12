@@ -185,7 +185,7 @@ public class InputMenu : MonoBehaviour
     {
         lights.UseLights = !lights.UseLights;
         lights.ToggleLights(lights.UseLights);
-        LightSettings.SetActive(lights.UseLights);
+        if (lights.UseAudioColor) LightSettings.SetActive(lights.UseLights);
         if (lights.UseLights)
         {
             LightsToggle.image.sprite = ToggleOn;
@@ -201,7 +201,7 @@ public class InputMenu : MonoBehaviour
     {
         lights.UseLasers = !lights.UseLasers;
         lights.ToggleLasers(lights.UseLasers);
-        LaserSettings.SetActive(lights.UseLasers);
+        if (lights.UseAudioColor) LaserSettings.SetActive(lights.UseLasers);
         if (lights.UseLasers)
         {
             LasersToggle.image.sprite = ToggleOn;
