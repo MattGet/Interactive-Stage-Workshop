@@ -8,7 +8,7 @@ using System.Linq;
 public class ReactingLights : MonoBehaviour
 {
     [Header("MAIN")]
-
+    public StageVideoManager VideoManager;
     public AudioPeer AudioVisualiser;
     public VideoPlayer videoSource;
     public Light[] lights;
@@ -76,7 +76,7 @@ public class ReactingLights : MonoBehaviour
 
     public void Update()
     {
-        if (UseAudioColor && videoSource.isPlaying)
+        if (UseAudioColor && VideoManager.isPlaying)
         {
             SetAudioColor();
         }

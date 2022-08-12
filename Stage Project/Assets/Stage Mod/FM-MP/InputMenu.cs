@@ -168,11 +168,15 @@ public class InputMenu : MonoBehaviour
         {
             lights.UseAudioColor = false;
             ToggleMode.image.sprite = ToggleOff;
+            LightSettings.SetActive(false);
+            LaserSettings.SetActive(false);
         }
         else
         {
             lights.UseAudioColor = true;
             ToggleMode.image.sprite = ToggleOn;
+            if (lights.UseLasers) LaserSettings.SetActive(true);
+            if (lights.UseLights) LightSettings.SetActive(true);
         }
         Playclick();
     }
