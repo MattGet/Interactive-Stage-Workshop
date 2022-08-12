@@ -10,12 +10,19 @@ using FireworksMania.Core.Messaging;
 
 public class InputMenu : MonoBehaviour
 {
-
+    [Header("Video Main")]
     public Button cancel;
     public Button OK;
     public Button Paste;
     public TMP_InputField inputField;
     public TMP_Dropdown Quality;
+    public AudioClip clicks;
+    public AudioClip errors;
+    public AudioSource audioplay;
+    public Sprite ToggleOn;
+    public Sprite ToggleOff;
+
+    [Header("Video Controls")]
     public Button play;
     public Button pause;
     public Button stop;
@@ -27,20 +34,34 @@ public class InputMenu : MonoBehaviour
     public Slider volume;
     public Slider VidTime;
     public TMP_Text TimeValue;
-    private StageVideoManager videocontroller;
-    private bool whiledisplay = false;
-    public AudioClip clicks;
-    public AudioClip errors;
-    public AudioSource audioplay;
     public float volnumb = 1;
+
+    [Header("Reacting Lights Settings")]
     public ReactingLights lights;
+    public Button ToggleMode;
+    public Button LightsToggle;
+    public Button LasersToggle;
+    
+
+
+    [Header("Lights Settings")]
+    public GameObject LightSettings;
     public Slider SAlpha;
     public Slider SColor;
     public Slider SBuffer;
     public Slider SEnhancer;
-    public Button ToggleMode;
     public TMP_Dropdown ColorMode;
 
+    [Header("Laser Settings")]
+    public GameObject LaserSettings;
+    public Slider SLAlpha;
+    public Slider SLColor;
+    public Slider SLBuffer;
+    public Slider SLEnhancer;
+    public TMP_Dropdown SLColorMode;
+
+    private StageVideoManager videocontroller;
+    private bool whiledisplay = false;
 
     private void Awake()
     {
@@ -103,13 +124,41 @@ public class InputMenu : MonoBehaviour
         SColor.value = lights.ColorMulti;
         SBuffer.value = lights.AudioVisualiser.BufferMultiplier;
         SEnhancer.value = lights.ColorEnhancer;
-        if (lights.UseAudioColor)
+        OnOpen();
+
+    }
+
+    private void OnOpen()
+    {
+        if (lights.UseLights)
         {
-            ToggleMode.image.color = Color.magenta;
+            LightsToggle.image.sprite = ToggleOn;
+            LightSettings.SetActive(true);
         }
         else
         {
-            ToggleMode.image.color = Color.cyan;
+            LightsToggle.image.sprite = ToggleOff;
+            LightSettings.SetActive(false);
+        }
+
+        if (lights.UseLasers)
+        {
+            LasersToggle.image.sprite = ToggleOn;
+            LaserSettings.SetActive(true);
+        }
+        else
+        {
+            LasersToggle.image.sprite = ToggleOff;
+            LaserSettings.SetActive(false);
+        }
+
+        if (lights.UseAudioColor)
+        {
+            ToggleMode.image.sprite = ToggleOn;
+        }
+        else
+        {
+            ToggleMode.image.sprite = ToggleOff;
         }
     }
 
@@ -118,14 +167,48 @@ public class InputMenu : MonoBehaviour
         if (lights.UseAudioColor)
         {
             lights.UseAudioColor = false;
-            ToggleMode.image.color = Color.cyan;
+            ToggleMode.image.sprite = ToggleOff;
         }
         else
         {
             lights.UseAudioColor = true;
-            ToggleMode.image.color = Color.magenta;
+            ToggleMode.image.sprite = ToggleOn;
         }
+        Playclick();
     }
+
+    public void ToggleLights()
+    {
+        lights.UseLights = !lights.UseLights;
+        lights.ToggleLights(lights.UseLights);
+        LightSettings.SetActive(lights.UseLights);
+        if (lights.UseLights)
+        {
+            LightsToggle.image.sprite = ToggleOn;
+        }
+        else
+        {
+            LightsToggle.image.sprite = ToggleOff;
+        }
+        Playclick();
+    }
+
+    public void ToggleLasers()
+    {
+        lights.UseLasers = !lights.UseLasers;
+        lights.ToggleLasers(lights.UseLasers);
+        LaserSettings.SetActive(lights.UseLasers);
+        if (lights.UseLasers)
+        {
+            LasersToggle.image.sprite = ToggleOn;
+        }
+        else
+        {
+            LasersToggle.image.sprite = ToggleOff;
+        }
+        Playclick();
+    }
+
     public void SetAlpha(float color)
     {
         lights.AlphaMulti = color;

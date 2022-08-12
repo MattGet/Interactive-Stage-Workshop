@@ -7,27 +7,33 @@ using System.Linq;
 
 public class ReactingLights : MonoBehaviour
 {
+    [Header("MAIN")]
 
-    public bool UseAudioColor = false;
     public AudioPeer AudioVisualiser;
     public VideoPlayer videoSource;
     public Light[] lights;
 	public GameObject laserParent;
     public ShowLaserEffect[] lasers;
-    public Color averageColor;
-    private Texture2D tex;
-    private bool enable;
     public GameObject Vlights;
     public Light[] vlights;
     public GameObject[] objects;
-    bool createTexture = false;
+
+    private Texture2D tex;
+    private bool enable;
+
+    [Header("Color Settings")]
+    public Color averageColor;
+    public ColorMode colorMode = ColorMode.One;
     [Range(0, 2)]
     public float AlphaMulti = 1;
     [Range(0, 1)]
     public float ColorMulti = 1;
     public float volumeMulti = 1;
     public float ColorEnhancer = 1.5f;
-    public ColorMode colorMode = ColorMode.One;
+
+    [Header("Toggle Settings")]
+    bool createTexture = false;
+    public bool UseAudioColor = false;
     public bool UseLights = true;
     public bool UseLasers = true;
     public bool UseObjects = true;
@@ -64,7 +70,8 @@ public class ReactingLights : MonoBehaviour
 
     private void Awake()
     {
-        //ToggleLights(false);
+        ToggleLights(false);
+        ToggleLasers(false);
     }
 
     public void Update()
@@ -90,7 +97,6 @@ public class ReactingLights : MonoBehaviour
         {
             L.gameObject.SetActive(On);
         }
-        UseLights = On;
     }
 
     public void ToggleLasers(bool On)
@@ -99,7 +105,6 @@ public class ReactingLights : MonoBehaviour
         {
             L.gameObject.SetActive(On);
         }
-        UseLasers = On;
     }
 
 
