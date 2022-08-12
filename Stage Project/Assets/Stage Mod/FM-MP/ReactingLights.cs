@@ -64,12 +64,12 @@ public class ReactingLights : MonoBehaviour
 
     private void Awake()
     {
-        ToggleLights(false);
+        //ToggleLights(false);
     }
 
     public void Update()
     {
-        if (UseAudioColor)
+        if (UseAudioColor && videoSource.isPlaying)
         {
             SetAudioColor();
         }
@@ -90,11 +90,18 @@ public class ReactingLights : MonoBehaviour
         {
             L.gameObject.SetActive(On);
         }
+        UseLights = On;
+    }
+
+    public void ToggleLasers(bool On)
+    {
         foreach (ShowLaserEffect L in lasers)
         {
             L.gameObject.SetActive(On);
         }
+        UseLasers = On;
     }
+
 
     public void SetColorMode(int input)
     {

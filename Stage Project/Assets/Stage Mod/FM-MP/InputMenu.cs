@@ -238,14 +238,16 @@ public class InputMenu : MonoBehaviour
                 //Debug.Log("Force Starting");
                 videocontroller.Quality(Quality.value);
                 videocontroller.forcestartvideo(inputField.text);
-                lights.ToggleLights(true);
+                if (lights.UseLights) lights.ToggleLights(true);
+                if (lights.UseLasers) lights.ToggleLasers(true);
                 videocontroller.ToggleAnimations();
                 Playclick();
             }
             else if (videocontroller.player.isPaused)
             {
                 videocontroller.player.Play();
-                lights.ToggleLights(true);
+                if (lights.UseLights) lights.ToggleLights(true);
+                if (lights.UseLasers) lights.ToggleLasers(true);
                 Playclick();
                 videocontroller.isPlaying = true;
             }
@@ -270,6 +272,7 @@ public class InputMenu : MonoBehaviour
                 Playclick();
                 videocontroller.Stop();
                 lights.ToggleLights(false);
+                lights.ToggleLasers(false);
                 videocontroller.ToggleAnimations();
                 videocontroller.onlytriggeronce = false;
                 videocontroller.isPlaying = false;
