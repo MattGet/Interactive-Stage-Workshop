@@ -13944,8 +13944,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1677720139205077877}
         m_TargetAssemblyTypeName: InputMenu, Assembly-CSharp
-        m_MethodName: SetBufferM
-        m_Mode: 0
+        m_MethodName: 
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -19270,8 +19270,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1677720139205077877}
         m_TargetAssemblyTypeName: InputMenu, Assembly-CSharp
-        m_MethodName: SetEnhancer
-        m_Mode: 0
+        m_MethodName: 
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -19373,8 +19373,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1677720139205077877}
         m_TargetAssemblyTypeName: InputMenu, Assembly-CSharp
-        m_MethodName: SetColorM
-        m_Mode: 0
+        m_MethodName: 
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -43461,7 +43461,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1677720139205077877}
         m_TargetAssemblyTypeName: InputMenu, Assembly-CSharp
-        m_MethodName: ToggleColorMode
+        m_MethodName: ToggleLights
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -80100,8 +80100,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1677720139205077877}
         m_TargetAssemblyTypeName: InputMenu, Assembly-CSharp
-        m_MethodName: SetAlpha
-        m_Mode: 0
+        m_MethodName: 
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -84224,14 +84224,21 @@ MonoBehaviour:
   TimeValue: {fileID: 4118901521135796828}
   volnumb: 1
   lights: {fileID: 6405365676822221571}
+  ToggleMode: {fileID: 7941061075350980772}
+  LightsToggle: {fileID: 0}
+  LasersToggle: {fileID: 0}
+  LightSettings: {fileID: 0}
   SAlpha: {fileID: 8366179748320458488}
   SColor: {fileID: 4115540771189645784}
   SBuffer: {fileID: 6426461979487975680}
   SEnhancer: {fileID: 5940721087005052100}
-  ToggleMode: {fileID: 7941061075350980772}
   ColorMode: {fileID: 995048480229091529}
-  LightsToggle: {fileID: 0}
-  LasersToggle: {fileID: 0}
+  LaserSettings: {fileID: 0}
+  SLAlpha: {fileID: 0}
+  SLColor: {fileID: 0}
+  SLBuffer: {fileID: 0}
+  SLEnhancer: {fileID: 0}
+  SLColorMode: {fileID: 0}
 --- !u!82 &4430416873543919264
 AudioSource:
   m_ObjectHideFlags: 0
@@ -95894,8 +95901,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1677720139205077877}
         m_TargetAssemblyTypeName: InputMenu, Assembly-CSharp
-        m_MethodName: CColorMode
-        m_Mode: 0
+        m_MethodName: 
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -116404,7 +116411,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1677720139205077877}
         m_TargetAssemblyTypeName: InputMenu, Assembly-CSharp
-        m_MethodName: ToggleColorMode
+        m_MethodName: ToggleLasers
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
