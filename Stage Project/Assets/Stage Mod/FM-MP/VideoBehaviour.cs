@@ -41,6 +41,21 @@ public class VideoBehaviour : BaseFireworkBehavior, IHaveFuse, IIgnitable, IHave
         entitydata.Add<float>("videoVol", menu.volnumb);
         entitydata.Add<int>("vidQual", (int)StageManager.videoQuality);
         entitydata.Add<float>("VidTime", (float)StageManager.player.time);
+
+        entitydata.Add<bool>("AudioColor", StageManager.Lights.UseAudioColor);
+        entitydata.Add<bool>("UseLights", StageManager.Lights.UseLights);
+        entitydata.Add<bool>("UseLasers", StageManager.Lights.UseLasers);
+        entitydata.Add<float>("AudioBuffer", StageManager.Lights.AudioVisualiser.BufferMultiplier);
+
+        entitydata.Add<float>("SAlpha", StageManager.Lights.AlphaMulti);
+        entitydata.Add<float>("SColor", StageManager.Lights.ColorMulti);
+        entitydata.Add<float>("SEnhancer", StageManager.Lights.ColorEnhancer);
+        entitydata.Add<int>("ColorMode", ((int)StageManager.Lights.colorMode));
+
+        entitydata.Add<float>("LASAlpha", StageManager.Lights.LASAlphaMulti);
+        entitydata.Add<float>("LASColor", StageManager.Lights.LASColorMulti);
+        entitydata.Add<float>("LASEnhancer", StageManager.Lights.LASColorEnhancer);
+        entitydata.Add<int>("LASColorMode", ((int)StageManager.Lights.LAScolorMode));
         //Debug.Log("stored Shell ID = " + TubeID);
         return entitydata;
     }
@@ -72,6 +87,21 @@ public class VideoBehaviour : BaseFireworkBehavior, IHaveFuse, IIgnitable, IHave
         {
             StageManager.SetVideoStartTime(time);
         }
+
+        if (StageManager.Lights.UseAudioColor != customComponentData.Get<bool>("AudioColor")) menu.ToggleColorMode();
+        if (StageManager.Lights.UseLights != customComponentData.Get<bool>("UseLights")) menu.ToggleLights();
+        if (StageManager.Lights.UseLasers != customComponentData.Get<bool>("UseLasers")) menu.ToggleLasers();
+        menu.SBuffer.value = customComponentData.Get<float>("AudioBuffer");
+
+        menu.SAlpha.value = customComponentData.Get<float>("SAlpha");
+        menu.SColor.value = customComponentData.Get<float>("SColor");
+        menu.SEnhancer.value = customComponentData.Get<float>("SEnhancer");
+        menu.ColorMode.value = customComponentData.Get<int>("ColorMode");
+
+        menu.SLAlpha.value = customComponentData.Get<float>("LASAlpha");
+        menu.SLColor.value = customComponentData.Get<float>("LASColor");
+        menu.SLEnhancer.value = customComponentData.Get<float>("LASEnhancer");
+        menu.SLColorMode.value = customComponentData.Get<int>("LASColorMode");
     }
 
 
@@ -124,10 +154,12 @@ public class VideoBehaviour : BaseFireworkBehavior, IHaveFuse, IIgnitable, IHave
         if (StageManager.isPlaying)
         {
             StageManager.player.Play();
+            if (menu.lights.UseLasers) StageManager.ToggleAnimations();
         }
         else
         {
             this.StageManager.PlayVideo();
+            if (menu.lights.UseLasers) StageManager.ToggleAnimations();
         }
         await UniTask.WaitWhile(() => StageManager.isPlaying == true, PlayerLoopTiming.Update, token);
         token.ThrowIfCancellationRequested();

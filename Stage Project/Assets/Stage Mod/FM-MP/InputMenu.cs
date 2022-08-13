@@ -119,11 +119,16 @@ public class InputMenu : MonoBehaviour
         }
 
         CQuality(Quality.value);
+        CColorMode(((int)lights.colorMode));
+        LASCColorMode(((int)lights.LAScolorMode));
+        SBuffer.value = lights.AudioVisualiser.BufferMultiplier;
 
         SAlpha.value = lights.AlphaMulti;
         SColor.value = lights.ColorMulti;
-        SBuffer.value = lights.AudioVisualiser.BufferMultiplier;
         SEnhancer.value = lights.ColorEnhancer;
+        SLAlpha.value = lights.LASAlphaMulti;
+        SLColor.value = lights.LASColorMulti;
+        SLEnhancer.value = lights.LASColorEnhancer;
         OnOpen();
 
     }
@@ -347,7 +352,7 @@ public class InputMenu : MonoBehaviour
                 videocontroller.forcestartvideo(inputField.text);
                 if (lights.UseLights) lights.ToggleLights(true);
                 if (lights.UseLasers) lights.ToggleLasers(true);
-                videocontroller.ToggleAnimations();
+                if (lights.UseLasers) videocontroller.ToggleAnimations();
                 Playclick();
             }
             else if (videocontroller.player.isPaused)
@@ -380,7 +385,7 @@ public class InputMenu : MonoBehaviour
                 videocontroller.Stop();
                 lights.ToggleLights(false);
                 lights.ToggleLasers(false);
-                videocontroller.ToggleAnimations();
+                if (lights.UseLasers) videocontroller.ToggleAnimations();
                 videocontroller.onlytriggeronce = false;
                 videocontroller.isPlaying = false;
             }
@@ -404,6 +409,7 @@ public class InputMenu : MonoBehaviour
                 videocontroller.player.Pause();
                 videocontroller.player.playbackSpeed = 1;
                 videocontroller.isSeeking = false;
+                if (lights.UseLasers) videocontroller.ToggleAnimations();
                 Playclick();
             }
             else
