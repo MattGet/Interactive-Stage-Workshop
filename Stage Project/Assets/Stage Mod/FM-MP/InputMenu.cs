@@ -213,6 +213,11 @@ public class InputMenu : MonoBehaviour
         Playclick();
     }
 
+    public void SetBufferM(float buff)
+    {
+        lights.AudioVisualiser.BufferMultiplier = buff;
+    }
+
     public void SetAlpha(float color)
     {
         lights.AlphaMulti = color;
@@ -223,14 +228,24 @@ public class InputMenu : MonoBehaviour
         lights.ColorMulti = color;
     }
 
-    public void SetBufferM(float buff)
-    {
-        lights.AudioVisualiser.BufferMultiplier = buff;
-    }
-
     public void SetEnhancer(float Enh)
     {
         lights.ColorEnhancer = Enh;
+    }
+
+    public void LASSetAlpha(float color)
+    {
+        lights.LASAlphaMulti = color;
+    }
+
+    public void LASSetColorM(float color)
+    {
+        lights.LASColorMulti = color;
+    }
+
+    public void LASSetEnhancer(float Enh)
+    {
+        lights.LASColorEnhancer = Enh;
     }
 
     public void StartTime()
@@ -251,6 +266,11 @@ public class InputMenu : MonoBehaviour
     public void CColorMode(int id)
     {
         lights.SetColorMode(id);
+    }
+
+    public void LASCColorMode(int id)
+    {
+        lights.SetColorMode(id, true);
     }
 
 

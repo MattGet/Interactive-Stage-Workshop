@@ -17,19 +17,28 @@ public class ReactingLights : MonoBehaviour
     public GameObject Vlights;
     public Light[] vlights;
     public GameObject[] objects;
+    public float volumeMulti = 1;
 
     private Texture2D tex;
     private bool enable;
 
-    [Header("Color Settings")]
+    [Header("light Settings")]
     public Color averageColor;
     public ColorMode colorMode = ColorMode.One;
     [Range(0, 2)]
     public float AlphaMulti = 1;
     [Range(0, 1)]
     public float ColorMulti = 1;
-    public float volumeMulti = 1;
     public float ColorEnhancer = 1.5f;
+
+    [Header("Laser Settings")]
+    public Color LASaverageColor;
+    public ColorMode LAScolorMode = ColorMode.One;
+    [Range(0, 2)]
+    public float LASAlphaMulti = 1;
+    [Range(0, 1)]
+    public float LASColorMulti = 1;
+    public float LASColorEnhancer = 1.5f;
 
     [Header("Toggle Settings")]
     bool createTexture = false;
@@ -78,7 +87,16 @@ public class ReactingLights : MonoBehaviour
     {
         if (UseAudioColor && VideoManager.isPlaying)
         {
-            SetAudioColor();
+            if (UseLasers)
+            {
+                Color Laser = SetAudioColor(LAScolorMode, LASColorMulti, LASAlphaMulti, LASColorEnhancer);
+                ApplyColor(Laser, true, false);
+            }
+            if (UseLights)
+            {
+                Color Light = SetAudioColor(colorMode, ColorMulti, AlphaMulti, ColorEnhancer);
+                ApplyColor(Light, false, true);
+            }
         }
     }
 
@@ -108,33 +126,41 @@ public class ReactingLights : MonoBehaviour
     }
 
 
-    public void SetColorMode(int input)
+    public void SetColorMode(int input, bool SetLaser = false)
     {
+        ColorMode Mode = new ColorMode();
         switch (input)
         {
             case 1:
-                colorMode = ColorMode.One;
+                Mode = ColorMode.One;
                 break;
             case 2:
-                colorMode = ColorMode.Two;
+                Mode = ColorMode.Two;
                 break;
             case 3:
-                colorMode = ColorMode.Three;
+                Mode = ColorMode.Three;
                 break;
             case 4:
-                colorMode = ColorMode.Four;
+                Mode = ColorMode.Four;
                 break;
             case 5:
-                colorMode = ColorMode.Five;
+                Mode = ColorMode.Five;
                 break;
             case 6:
-                colorMode = ColorMode.Six;
+                Mode = ColorMode.Six;
                 break;
             default:
-                colorMode = ColorMode.One;
+                Mode = ColorMode.One;
                 break;
         }
-
+        if (!SetLaser)
+        {
+            colorMode = Mode;
+        }
+        else
+        {
+            LAScolorMode = Mode;
+        }
     }
 
     private void OnValidate()
@@ -149,7 +175,7 @@ public class ReactingLights : MonoBehaviour
         }
     }
 
-    private void SetAudioColor()
+    private Color SetAudioColor(ColorMode colorMode, float ColorMulti, float AlphaMulti, float ColorEnhancer)
     {
         float avrg1 = Mathf.Clamp01(((AudioVisualiser.audioBandBuffer[0] + AudioVisualiser.audioBandBuffer[1] + AudioVisualiser.audioBandBuffer[2]) / 3) * volumeMulti * ColorMulti);
         float avrg2 = Mathf.Clamp01(((AudioVisualiser.audioBandBuffer[3] + AudioVisualiser.audioBandBuffer[4] + AudioVisualiser.audioBandBuffer[5]) / 3) * volumeMulti * ColorMulti);
@@ -190,13 +216,12 @@ public class ReactingLights : MonoBehaviour
                 break;
         }
         //Debug.Log($"Applying Color, R: {avrg1}, G: {avrg2}, B: {avrg3}, A: {AudioVisualiser.AmplitudeBuffer * AlphaMulti}");
-        ApplyColor(temp);
+        return temp;
     }
 
 
     private void NewFrame(VideoPlayer vplayer, long frame)
     {
-        if (UseAudioColor) return;
         if (!createTexture)
         {
             createTexture = true;
@@ -241,10 +266,16 @@ public class ReactingLights : MonoBehaviour
 
         tex.Apply();
         averageColor = AverageColorFromTexture(tex);
-        ApplyColor(averageColor);
+
+        if (!UseAudioColor)
+        {
+            ApplyColor(averageColor, true, true);
+        }
+
+        ScreenColor(averageColor);
     }
 
-    private void ApplyColor(Color color)
+    private void ScreenColor(Color color)
     {
         if (!videoSource.isPlaying)
         {
@@ -265,7 +296,12 @@ public class ReactingLights : MonoBehaviour
             setcolor = new Color(color.r, color.g, color.b, a);
             light.color = setcolor;
         }
-        if (UseLasers)
+    }
+
+    private void ApplyColor(Color color, bool IsLaser, bool IsLight)
+    {
+        
+        if (UseLasers && IsLaser)
         {
             foreach (ShowLaserEffect laser in lasers)
             {
@@ -284,7 +320,7 @@ public class ReactingLights : MonoBehaviour
             }
         }
         
-        if (UseLights)
+        if (UseLights && IsLight)
         {
             foreach (Light light in vlights)
             {
@@ -302,7 +338,7 @@ public class ReactingLights : MonoBehaviour
                 light.color = setcolor3;
             }
         }
-        if (UseObjects)
+        if (UseObjects && IsLight)
         {
             if (Application.isPlaying)
             {
