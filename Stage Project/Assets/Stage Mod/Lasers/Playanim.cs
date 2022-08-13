@@ -11,7 +11,7 @@ public class Playanim : MonoBehaviour
     public AnimationClip animationClip;
     [SerializeField]
     private Animator _animation;
-    private bool playing;
+    public bool playing;
 
 
     protected void Awake()

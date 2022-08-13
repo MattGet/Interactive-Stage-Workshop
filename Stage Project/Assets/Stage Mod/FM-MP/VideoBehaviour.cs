@@ -154,12 +154,12 @@ public class VideoBehaviour : BaseFireworkBehavior, IHaveFuse, IIgnitable, IHave
         if (StageManager.isPlaying)
         {
             StageManager.player.Play();
-            if (menu.lights.UseLasers) StageManager.ToggleAnimations();
+            if (menu.lights.UseLasers && !StageManager.IsAnimating) StageManager.ToggleAnimations();
         }
         else
         {
             this.StageManager.PlayVideo();
-            if (menu.lights.UseLasers) StageManager.ToggleAnimations();
+            if (menu.lights.UseLasers && !StageManager.IsAnimating) StageManager.ToggleAnimations();
         }
         await UniTask.WaitWhile(() => StageManager.isPlaying == true, PlayerLoopTiming.Update, token);
         token.ThrowIfCancellationRequested();

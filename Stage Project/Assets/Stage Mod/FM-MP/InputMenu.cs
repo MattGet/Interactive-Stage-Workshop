@@ -352,7 +352,7 @@ public class InputMenu : MonoBehaviour
                 videocontroller.forcestartvideo(inputField.text);
                 if (lights.UseLights) lights.ToggleLights(true);
                 if (lights.UseLasers) lights.ToggleLasers(true);
-                if (lights.UseLasers) videocontroller.ToggleAnimations();
+                if (lights.UseLasers && !videocontroller.IsAnimating) videocontroller.ToggleAnimations();
                 Playclick();
             }
             else if (videocontroller.player.isPaused)
@@ -360,6 +360,7 @@ public class InputMenu : MonoBehaviour
                 videocontroller.player.Play();
                 if (lights.UseLights) lights.ToggleLights(true);
                 if (lights.UseLasers) lights.ToggleLasers(true);
+                if (lights.UseLasers && !videocontroller.IsAnimating) videocontroller.ToggleAnimations();
                 Playclick();
                 videocontroller.isPlaying = true;
             }
@@ -385,7 +386,7 @@ public class InputMenu : MonoBehaviour
                 videocontroller.Stop();
                 lights.ToggleLights(false);
                 lights.ToggleLasers(false);
-                if (lights.UseLasers) videocontroller.ToggleAnimations();
+                if (lights.UseLasers && videocontroller.IsAnimating) videocontroller.ToggleAnimations();
                 videocontroller.onlytriggeronce = false;
                 videocontroller.isPlaying = false;
             }
@@ -409,7 +410,7 @@ public class InputMenu : MonoBehaviour
                 videocontroller.player.Pause();
                 videocontroller.player.playbackSpeed = 1;
                 videocontroller.isSeeking = false;
-                if (lights.UseLasers) videocontroller.ToggleAnimations();
+                if (lights.UseLasers && videocontroller.IsAnimating) videocontroller.ToggleAnimations();
                 Playclick();
             }
             else
