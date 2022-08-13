@@ -119,8 +119,8 @@ public class InputMenu : MonoBehaviour
         }
 
         CQuality(Quality.value);
-        CColorMode(((int)lights.colorMode));
-        LASCColorMode(((int)lights.LAScolorMode));
+        CColorMode(ColorMode.value);
+        LASCColorMode(SLColorMode.value);
         SBuffer.value = lights.AudioVisualiser.BufferMultiplier;
 
         SAlpha.value = lights.AlphaMulti;
