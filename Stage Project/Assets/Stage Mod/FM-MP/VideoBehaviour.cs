@@ -151,15 +151,21 @@ public class VideoBehaviour : BaseFireworkBehavior, IHaveFuse, IIgnitable, IHave
 
     protected override async UniTask LaunchInternalAsync(CancellationToken token)
     {
-        if (StageManager.isPlaying)
+        if (StageManager.player.isPaused)
         {
             StageManager.player.Play();
+            if (menu.lights.UseLights) menu.lights.ToggleLights(true);
+            if (menu.lights.UseLasers) menu.lights.ToggleLasers(true);
             if (menu.lights.UseLasers && !StageManager.IsAnimating) StageManager.ToggleAnimations();
+            StageManager.isPlaying = true;
         }
-        else
+        else if (StageManager.player.isPrepared)
         {
-            this.StageManager.PlayVideo();
+            StageManager.PlayVideo();
+            if (menu.lights.UseLights) menu.lights.ToggleLights(true);
+            if (menu.lights.UseLasers) menu.lights.ToggleLasers(true);
             if (menu.lights.UseLasers && !StageManager.IsAnimating) StageManager.ToggleAnimations();
+            StageManager.isPlaying = true;
         }
         await UniTask.WaitWhile(() => StageManager.isPlaying == true, PlayerLoopTiming.Update, token);
         token.ThrowIfCancellationRequested();
