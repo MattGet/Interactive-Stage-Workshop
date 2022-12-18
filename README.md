@@ -1,0 +1,2 @@
+# Interactive-Stage-Workshop
+Unity Project containing my Dynamic Concert Stage with [Audio Reactive Lighting](https://github.com/MattGet/Interactive-Stage-Workshop/blob/main/Stage%20Project/Assets/Stage%20Mod/FM-MP/ReactingLights.cs) and custom [Volumetric Lights](https://github.com/MattGet/Interactive-Stage-Workshop/tree/main/Stage%20Project/Assets/Stage%20Mod/Panini%20Volumetric%20Spotlight) in Unity's Built in render pipline
