@@ -41,6 +41,7 @@ public class InputMenu : MonoBehaviour
     public Button ToggleMode;
     public Button LightsToggle;
     public Button LasersToggle;
+    public ColorPicker picker;
     
 
 
@@ -51,6 +52,9 @@ public class InputMenu : MonoBehaviour
     public Slider SBuffer;
     public Slider SEnhancer;
     public TMP_Dropdown ColorMode;
+    public GameObject customLightColor;
+    public Image LColor1;
+    public Image LColor2;
 
     [Header("Laser Settings")]
     public GameObject LaserSettings;
@@ -59,6 +63,9 @@ public class InputMenu : MonoBehaviour
     public Slider SLBuffer;
     public Slider SLEnhancer;
     public TMP_Dropdown SLColorMode;
+    public GameObject customLazerColor;
+    public Image LZColor1;
+    public Image LZColor2;
 
     private StageVideoManager videocontroller;
     private bool whiledisplay = false;
@@ -253,6 +260,57 @@ public class InputMenu : MonoBehaviour
         lights.LASColorEnhancer = Enh;
     }
 
+    public void LSetColor1()
+    {
+        if (!picker.isActive)
+        {
+            picker.ShowGUI(1);
+        }
+    }
+    public void LSetColor2()
+    {
+        if (!picker.isActive) {
+            picker.ShowGUI(2);
+        }
+    }
+    public void LZSetColor1()
+    {
+        if (!picker.isActive)
+        {
+            picker.ShowGUI(3);
+            
+        }
+    }
+    public void LZSetColor2()
+    {
+        if (!picker.isActive)
+        {
+            picker.ShowGUI(4);
+        }
+    }
+
+    public void updateColor(Color color, int Id) {
+        switch (Id)
+        {
+            case 1:
+                lights.LColor1 = color;
+                LColor1.color = color;
+                break;
+            case 2:
+                lights.LColor2 = color;
+                LColor2.color = color;
+                break;
+            case 3:
+                lights.LZColor1 = color;
+                LZColor1.color = color;
+                break;
+            case 4:
+                lights.LZColor2 = color;
+                LZColor2.color = color;
+                break;
+        }
+    }
+
     public void StartTime()
     {
         if (videocontroller.player != null)
@@ -271,11 +329,26 @@ public class InputMenu : MonoBehaviour
     public void CColorMode(int id)
     {
         lights.SetColorMode(id);
+        if (id == 6)
+        {
+            customLightColor.SetActive(true);
+        }
+        else {
+            customLightColor.SetActive(false);
+        }
     }
 
     public void LASCColorMode(int id)
     {
         lights.SetColorMode(id, true);
+        if (id == 6)
+        {
+            customLazerColor.SetActive(true);
+        }
+        else
+        {
+            customLazerColor.SetActive(false);
+        }
     }
 
 

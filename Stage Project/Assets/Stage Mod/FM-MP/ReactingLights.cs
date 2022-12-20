@@ -30,6 +30,8 @@ public class ReactingLights : MonoBehaviour
     [Range(0, 1)]
     public float ColorMulti = 1;
     public float ColorEnhancer = 1.5f;
+    public Color LColor1 = new Color();
+    public Color LColor2 = new Color();
 
     [Header("Laser Settings")]
     public Color LASaverageColor;
@@ -39,6 +41,9 @@ public class ReactingLights : MonoBehaviour
     [Range(0, 1)]
     public float LASColorMulti = 1;
     public float LASColorEnhancer = 1.5f;
+    public Color LZColor1 = new Color();
+    public Color LZColor2 = new Color();
+
 
     [Header("Toggle Settings")]
     bool createTexture = false;
@@ -56,6 +61,7 @@ public class ReactingLights : MonoBehaviour
         Four,
         Five,
         Six,
+        Custom,
     }
 
 
@@ -89,12 +95,12 @@ public class ReactingLights : MonoBehaviour
         {
             if (UseLasers)
             {
-                Color Laser = SetAudioColor(LAScolorMode, LASColorMulti, LASAlphaMulti, LASColorEnhancer);
+                Color Laser = SetAudioColor(LAScolorMode, LASColorMulti, LASAlphaMulti, LASColorEnhancer, true);
                 ApplyColor(Laser, true, false);
             }
             if (UseLights)
             {
-                Color Light = SetAudioColor(colorMode, ColorMulti, AlphaMulti, ColorEnhancer);
+                Color Light = SetAudioColor(colorMode, ColorMulti, AlphaMulti, ColorEnhancer, false);
                 ApplyColor(Light, false, true);
             }
         }
@@ -131,23 +137,26 @@ public class ReactingLights : MonoBehaviour
         ColorMode Mode = new ColorMode();
         switch (input)
         {
-            case 1:
+            case 0:
                 Mode = ColorMode.One;
                 break;
-            case 2:
+            case 1:
                 Mode = ColorMode.Two;
                 break;
-            case 3:
+            case 2:
                 Mode = ColorMode.Three;
                 break;
-            case 4:
+            case 3:
                 Mode = ColorMode.Four;
                 break;
-            case 5:
+            case 4:
                 Mode = ColorMode.Five;
                 break;
-            case 6:
+            case 5:
                 Mode = ColorMode.Six;
+                break;
+            case 6:
+                Mode = ColorMode.Custom;
                 break;
             default:
                 Mode = ColorMode.One;
@@ -175,13 +184,15 @@ public class ReactingLights : MonoBehaviour
         }
     }
 
-    private Color SetAudioColor(ColorMode colorMode, float ColorMulti, float AlphaMulti, float ColorEnhancer)
+    private Color SetAudioColor(ColorMode colorMode, float ColorMulti, float AlphaMulti, float ColorEnhancer, bool isLight)
     {
         float avrg1 = Mathf.Clamp01(((AudioVisualiser.audioBandBuffer[0] + AudioVisualiser.audioBandBuffer[1] + AudioVisualiser.audioBandBuffer[2]) / 3) * volumeMulti * ColorMulti);
         float avrg2 = Mathf.Clamp01(((AudioVisualiser.audioBandBuffer[3] + AudioVisualiser.audioBandBuffer[4] + AudioVisualiser.audioBandBuffer[5]) / 3) * volumeMulti * ColorMulti);
         float avrg3 = Mathf.Clamp01(((AudioVisualiser.audioBandBuffer[6] + AudioVisualiser.audioBandBuffer[7]) / 2) * volumeMulti * ColorMulti);
+        float avrg4 = Mathf.Clamp01(((AudioVisualiser.audioBandBuffer[0] + AudioVisualiser.audioBandBuffer[1] + AudioVisualiser.audioBandBuffer[2] + AudioVisualiser.audioBandBuffer[3])/4) * volumeMulti * ColorMulti);
+        float avrg5 = Mathf.Clamp01(((AudioVisualiser.audioBandBuffer[4] + AudioVisualiser.audioBandBuffer[5] + AudioVisualiser.audioBandBuffer[6] + AudioVisualiser.audioBandBuffer[7])/4) * volumeMulti * ColorMulti);
         float Avalue = Mathf.Clamp01(AudioVisualiser.AmplitudeBuffer * AlphaMulti * volumeMulti);
-        float[] values = new float[3] { avrg1, avrg2, avrg3 };
+        float[] values = new float[5] { avrg1, avrg2, avrg3, avrg4, avrg5 };
         for (int i = 0; i < 3; i++)
         {
             if (values[i] == values.Max())
@@ -213,6 +224,17 @@ public class ReactingLights : MonoBehaviour
                 break;
             case ColorMode.Six:
                 temp = new Color(values[2], values[1], values[0], Avalue);
+                break;
+            case ColorMode.Custom:
+                if (isLight)
+                {
+                    if (values[3] > values[4]) { temp = new Color(LColor1.r, LColor1.g, LColor1.b, Avalue); }
+                    else { temp = new Color(LColor2.r, LColor2.g, LColor2.b, Avalue); }
+                }
+                else {
+                    if (values[3] > values[4]) { temp = new Color(LZColor1.r, LZColor1.g, LZColor1.b, Avalue); }
+                    else { temp = new Color(LZColor2.r, LZColor2.g, LZColor2.b, Avalue); }
+                }
                 break;
         }
         //Debug.Log($"Applying Color, R: {avrg1}, G: {avrg2}, B: {avrg3}, A: {AudioVisualiser.AmplitudeBuffer * AlphaMulti}");
