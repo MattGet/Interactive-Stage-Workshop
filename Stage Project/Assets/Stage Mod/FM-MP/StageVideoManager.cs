@@ -154,6 +154,17 @@ public class StageVideoManager : MonoBehaviour
        
     }
 
+    public void ChangeAnimations(AnimationClip clip) {
+        if (UseAnimations)
+        {
+            foreach (Playanim anim in Animators)
+            {
+                anim.ChangeAnim(clip);
+                IsAnimating = anim.playing;
+            }
+        }
+    }
+
     IEnumerator Startvideo(bool andplay)
     {
         player.url = "";

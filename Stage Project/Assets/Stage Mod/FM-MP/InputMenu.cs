@@ -66,6 +66,7 @@ public class InputMenu : MonoBehaviour
     public GameObject customLazerColor;
     public Image LZColor1;
     public Image LZColor2;
+    public List<AnimationClip> AnimClips = new List<AnimationClip>();
 
     private StageVideoManager videocontroller;
     private bool whiledisplay = false;
@@ -173,6 +174,13 @@ public class InputMenu : MonoBehaviour
         }
     }
 
+    public void ChangeAnimClip(int selected) {
+        if (selected < AnimClips.Count - 1 && selected > 0) {
+            lights.ToggleLaserUpdates(true);
+            videocontroller.ChangeAnimations(AnimClips[selected]);
+        }
+    }
+
     public void ToggleColorMode()
     {
         if (lights.UseAudioColor)
@@ -242,6 +250,14 @@ public class InputMenu : MonoBehaviour
     public void SetEnhancer(float Enh)
     {
         lights.ColorEnhancer = Enh;
+    }
+
+    public void SetLightSensitivity(float S) {
+        lights.LightSensitivity = S;
+    }
+    public void SetLaserSensitivity(float S)
+    {
+        lights.LaserSensitivity = S;
     }
 
     public void LASSetAlpha(float color)

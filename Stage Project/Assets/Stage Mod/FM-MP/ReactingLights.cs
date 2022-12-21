@@ -31,6 +31,7 @@ public class ReactingLights : MonoBehaviour
     [Range(0, 1)]
     public float ColorMulti = 1;
     public float ColorEnhancer = 1.5f;
+    public float LightSensitivity = 0.25f;
     public Color LColor1 = new Color();
     public Color LColor2 = new Color();
 
@@ -42,6 +43,7 @@ public class ReactingLights : MonoBehaviour
     [Range(0, 1)]
     public float LASColorMulti = 1;
     public float LASColorEnhancer = 1.5f;
+    public float LaserSensitivity = 0.5f;
     public Color LZColor1 = new Color();
     public Color LZColor2 = new Color();
 
@@ -318,7 +320,7 @@ public class ReactingLights : MonoBehaviour
         {
             Color setcolor;
             float a = color.a;
-            if (color.a <= 0.25)
+            if (color.a <= LightSensitivity)
             {
                 a = 0;
             }
@@ -333,14 +335,14 @@ public class ReactingLights : MonoBehaviour
 
     private void ApplyColor(Color color, bool IsLaser, bool IsLight)
     {
-        
+        float Avalue = Mathf.Clamp01(AudioVisualiser.AmplitudeBuffer * volumeMulti);
         if (UseLasers && IsLaser)
         {
             foreach (ShowLaserEffect laser in lasers)
             {
                 Color setcolor2;
                 float a2 = color.a;
-                if (color.a <= 0.5)
+                if (Avalue <= LaserSensitivity)
                 {
                     a2 = 0;
                 }
@@ -359,7 +361,7 @@ public class ReactingLights : MonoBehaviour
             {
                 Color setcolor3;
                 float a3 = color.a;
-                if (color.a <= 0.25)
+                if (Avalue <= LightSensitivity)
                 {
                     a3 = 0;
                 }
@@ -415,4 +417,10 @@ public class ReactingLights : MonoBehaviour
         return new Color32((byte)(r / total) , (byte)(g / total) , (byte)(b / total) , (byte)(a / total));
 
 	}
+
+    public void ToggleLaserUpdates(bool On) {
+        foreach (ShowLaserEffect laser in lasers) {
+            laser.DoAnimate = On;
+        }
+    }
 }

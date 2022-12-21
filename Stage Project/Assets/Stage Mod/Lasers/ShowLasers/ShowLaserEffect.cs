@@ -184,6 +184,7 @@ namespace sourcenity {
         private MeshRenderer meshRenderer;
         public Texture2D cloudsTexture;
         public Texture2D smokeTexture;
+        public bool DoAnimate = false;
 
         /** Lifecycle methods **/
 
@@ -292,6 +293,13 @@ namespace sourcenity {
         /// and whether to actually show the mesh (otherwise, we disable it entirely).
         /// </summary>
         private void Update() {
+
+            if (DoAnimate) {
+                RefreshMesh();
+                shadow = CloneValues();
+                ApplyMeshAndMaterialToGameObject();
+                prevShow = show;
+            }
 
             bool hasChanged = false;
            

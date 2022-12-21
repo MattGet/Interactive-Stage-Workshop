@@ -31,7 +31,7 @@ public class Playanim : MonoBehaviour
         {
             _animation = this.gameObject.GetComponent<Animator>();
         }
-           
+
         if (this.laser == null)
         {
             laser = this.GetComponentInChildren<ShowLaserEffect>();
@@ -58,5 +58,14 @@ public class Playanim : MonoBehaviour
             _animation.Play(clip.name, 0, 0.0f);
             playing = true;
         }
+    }
+
+    public void ChangeAnim(AnimationClip clip)
+    {
+        animationClip = clip;
+        laser.gameObject.SetActive(true);
+        if (playing == true) { _animation.StopPlayback(); }
+        _animation.Play(clip.name, 0, 0.0f);
+        playing = true;
     }
 }
