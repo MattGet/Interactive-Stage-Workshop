@@ -18,6 +18,7 @@ public class ReactingLights : MonoBehaviour
     public Light[] vlights;
     public GameObject[] objects;
     public float volumeMulti = 1;
+    public int sensitivity;
 
     private Texture2D tex;
     private bool enable;
@@ -89,20 +90,27 @@ public class ReactingLights : MonoBehaviour
         ToggleLasers(false);
     }
 
+    private int curr = 0;
+
     public void Update()
     {
         if (UseAudioColor && VideoManager.isPlaying)
         {
-            if (UseLasers)
+            if (curr <= 0)
             {
-                Color Laser = SetAudioColor(LAScolorMode, LASColorMulti, LASAlphaMulti, LASColorEnhancer, true);
-                ApplyColor(Laser, true, false);
+                if (UseLasers)
+                {
+                    Color Laser = SetAudioColor(LAScolorMode, LASColorMulti, LASAlphaMulti, LASColorEnhancer, false);
+                    ApplyColor(Laser, true, false);
+                }
+                if (UseLights)
+                {
+                    Color Light = SetAudioColor(colorMode, ColorMulti, AlphaMulti, ColorEnhancer, true);
+                    ApplyColor(Light, false, true);
+                }
+                curr = sensitivity;
             }
-            if (UseLights)
-            {
-                Color Light = SetAudioColor(colorMode, ColorMulti, AlphaMulti, ColorEnhancer, false);
-                ApplyColor(Light, false, true);
-            }
+            else { curr--; }
         }
     }
 
@@ -226,14 +234,17 @@ public class ReactingLights : MonoBehaviour
                 temp = new Color(values[2], values[1], values[0], Avalue);
                 break;
             case ColorMode.Custom:
+                
                 if (isLight)
                 {
-                    if (values[3] > values[4]) { temp = new Color(LColor1.r, LColor1.g, LColor1.b, Avalue); }
-                    else { temp = new Color(LColor2.r, LColor2.g, LColor2.b, Avalue); }
+                    float additive = Mathf.Clamp01(Avalue * 1.15f);
+                    if (values[3] > values[4]) { temp = new Color(LColor1.r * additive, LColor1.g * additive, LColor1.b * additive, Avalue); }
+                    else { temp = new Color(LColor2.r * additive, LColor2.g * additive, LColor2.b * additive, Avalue); }
                 }
                 else {
-                    if (values[3] > values[4]) { temp = new Color(LZColor1.r, LZColor1.g, LZColor1.b, Avalue); }
-                    else { temp = new Color(LZColor2.r, LZColor2.g, LZColor2.b, Avalue); }
+                    float additive = Mathf.Clamp01(Avalue * 1.5f);
+                    if (values[3] > values[4]) { temp = new Color(LZColor1.r * additive, LZColor1.g * additive, LZColor1.b * additive, Avalue); }
+                    else { temp = new Color(LZColor2.r * additive, LZColor2.g * additive, LZColor2.b * additive, Avalue); }
                 }
                 break;
         }

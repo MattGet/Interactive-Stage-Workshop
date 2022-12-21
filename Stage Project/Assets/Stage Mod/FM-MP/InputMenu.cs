@@ -137,7 +137,6 @@ public class InputMenu : MonoBehaviour
         SLColor.value = lights.LASColorMulti;
         SLEnhancer.value = lights.LASColorEnhancer;
         OnOpen();
-
     }
 
     private void OnOpen()
@@ -309,6 +308,13 @@ public class InputMenu : MonoBehaviour
                 LZColor2.color = color;
                 break;
         }
+    }
+
+    public void updateSensitivty(float value) {
+        int curr = (int)Mathf.Floor(value);
+        curr = 120 - curr;
+        curr = Mathf.Clamp(curr, 0, 120);
+        lights.sensitivity = curr;
     }
 
     public void StartTime()

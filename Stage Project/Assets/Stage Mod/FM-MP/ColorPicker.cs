@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
+[ExecuteAlways]
 public class ColorPicker : MonoBehaviour
 {
     public GameObject GUI;
@@ -20,6 +21,7 @@ public class ColorPicker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GUI.SetActive(false);
     }
 
     public void OnValidate()
