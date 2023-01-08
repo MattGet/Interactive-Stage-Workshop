@@ -9,11 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4755664075934256}
+  - component: {fileID: -4647388684736481834}
   - component: {fileID: 33334171810801106}
   - component: {fileID: 23463037596104858}
   - component: {fileID: 65291004149814720}
+  - component: {fileID: -1487208308886612964}
   m_Layer: 0
-  m_Name: Scenefloor1xD
+  m_Name: Stagefloor1xD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,10 +31,23 @@ Transform:
   m_LocalRotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-4647388684736481834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769700741977808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1914845131, guid: 3f09449115d51f34f92446e64c2ec898, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &33334171810801106
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -52,9 +67,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -79,6 +97,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &65291004149814720
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -92,3 +111,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.9999996, y: 0.040000003, z: 1}
   m_Center: {x: 0, y: 0.02000018, z: 0}
+--- !u!114 &-1487208308886612964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769700741977808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 237544033, guid: 3f09449115d51f34f92446e64c2ec898, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modIdentity:
+    modName: '[ALPHA]-Interactive-Stage'
+    modVersion: 1.1.0
+    modIdentifier:
+      friendlyIdentifier: "\x157\NK\x90#\xD9\x01"
+      identifier: 1537854b9023d901
+  objectIdentifier:
+    friendlyIdentifier: "\xD5\xDF\xE4o"
+    identifier: d5dfe46f00000000

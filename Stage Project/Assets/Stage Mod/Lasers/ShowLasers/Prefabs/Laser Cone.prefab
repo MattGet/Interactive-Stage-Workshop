@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4991919055938238}
+  - component: {fileID: 4037096980894493042}
   - component: {fileID: -2880207369213153099}
   - component: {fileID: 6624569211600489348}
   - component: {fileID: 33049962910555710}
@@ -33,10 +34,23 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 3.76, y: -1.61, z: 1.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &4037096980894493042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1267350993533128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1914845131, guid: 3f09449115d51f34f92446e64c2ec898, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &-2880207369213153099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,123 +173,124 @@ MonoBehaviour:
     instanceMembers:
     - memberName: lasershader
       memberLink:
-        id: 0
+        rid: 0
     - memberName: show
       memberLink:
-        id: 1
+        rid: 1
     - memberName: type
       memberLink:
-        id: 2
+        rid: 2
     - memberName: alignment
       memberLink:
-        id: 3
+        rid: 3
     - memberName: width
       memberLink:
-        id: 4
+        rid: 4
     - memberName: length
       memberLink:
-        id: 5
+        rid: 5
     - memberName: radius
       memberLink:
-        id: 6
+        rid: 6
     - memberName: mainColor
       memberLink:
-        id: 7
+        rid: 7
     - memberName: fill
       memberLink:
-        id: 8
+        rid: 8
     - memberName: numberOfSegments
       memberLink:
-        id: 9
+        rid: 9
     - memberName: gapBetweenSegments
       memberLink:
-        id: 10
+        rid: 10
     - memberName: leftSideOffset
       memberLink:
-        id: 11
+        rid: 11
     - memberName: leftSideColor
       memberLink:
-        id: 12
+        rid: 12
     - memberName: rightSideOffset
       memberLink:
-        id: 13
+        rid: 13
     - memberName: rightSideColor
       memberLink:
-        id: 14
+        rid: 14
     - memberName: visualization
       memberLink:
-        id: 15
+        rid: 15
     - memberName: textureType
       memberLink:
-        id: 16
+        rid: 16
     - memberName: customTexture
       memberLink:
-        id: 17
+        rid: 17
     - memberName: noiseScaling
       memberLink:
-        id: 18
+        rid: 18
     - memberName: timeScaling
       memberLink:
-        id: 19
+        rid: 19
     - memberName: distortionStrength
       memberLink:
-        id: 20
+        rid: 20
     - memberName: fadeOutValue
       memberLink:
-        id: 21
+        rid: 21
     - memberName: gammaValue
       memberLink:
-        id: 22
+        rid: 22
     - memberName: generalTransparency
       memberLink:
-        id: 23
+        rid: 23
     - memberName: cloudsTexture
       memberLink:
-        id: 24
+        rid: 24
     - memberName: smokeTexture
       memberLink:
-        id: 25
+        rid: 25
   deserializeInstance: {fileID: 0}
   references:
-    version: 1
-    00000000:
+    version: 2
+    RefIds:
+    - rid: 0
       type: {class: TypeHandler_UnityObjectV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         linkType: 1
         value: {fileID: 0}
         behaviourID: -1
-    00000001:
+    - rid: 1
       type: {class: TypeHandler_PrimitiveBoolV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         value: 1
-    00000002:
+    - rid: 2
       type: {class: TypeHandler_PrimitiveEnumV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         enumValue: 2
-    00000003:
+    - rid: 3
       type: {class: TypeHandler_PrimitiveEnumV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         enumValue: 1
-    00000004:
+    - rid: 4
       type: {class: TypeHandler_PrimitiveDecimalV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         value: 360
-    00000005:
+    - rid: 5
       type: {class: TypeHandler_PrimitiveDecimalV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         value: 3.930000066757202
-    00000006:
+    - rid: 6
       type: {class: TypeHandler_PrimitiveDecimalV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         value: 1.4299999475479126
-    00000007:
+    - rid: 7
       type: {class: LinkInstanceV2, ns: UMod.Shared.Linker, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
@@ -287,37 +302,37 @@ MonoBehaviour:
         instanceMembers:
         - memberName: r
           memberLink:
-            id: 26
+            rid: 26
         - memberName: g
           memberLink:
-            id: 27
+            rid: 27
         - memberName: b
           memberLink:
-            id: 28
+            rid: 28
         - memberName: a
           memberLink:
-            id: 29
-    00000008:
+            rid: 29
+    - rid: 8
       type: {class: TypeHandler_PrimitiveDecimalV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         value: 1
-    00000009:
+    - rid: 9
       type: {class: TypeHandler_PrimitiveIntV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         value: 1
-    0000000A:
+    - rid: 10
       type: {class: TypeHandler_PrimitiveDecimalV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         value: 0
-    0000000B:
+    - rid: 11
       type: {class: TypeHandler_PrimitiveDecimalV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         value: 0
-    0000000C:
+    - rid: 12
       type: {class: LinkInstanceV2, ns: UMod.Shared.Linker, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
@@ -329,22 +344,22 @@ MonoBehaviour:
         instanceMembers:
         - memberName: r
           memberLink:
-            id: 30
+            rid: 30
         - memberName: g
           memberLink:
-            id: 31
+            rid: 31
         - memberName: b
           memberLink:
-            id: 32
+            rid: 32
         - memberName: a
           memberLink:
-            id: 33
-    0000000D:
+            rid: 33
+    - rid: 13
       type: {class: TypeHandler_PrimitiveDecimalV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         value: 0
-    0000000E:
+    - rid: 14
       type: {class: LinkInstanceV2, ns: UMod.Shared.Linker, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
@@ -356,133 +371,133 @@ MonoBehaviour:
         instanceMembers:
         - memberName: r
           memberLink:
-            id: 34
+            rid: 34
         - memberName: g
           memberLink:
-            id: 35
+            rid: 35
         - memberName: b
           memberLink:
-            id: 36
+            rid: 36
         - memberName: a
           memberLink:
-            id: 37
-    0000000F:
+            rid: 37
+    - rid: 15
       type: {class: TypeHandler_PrimitiveEnumV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         enumValue: 1
-    00000010:
+    - rid: 16
       type: {class: TypeHandler_PrimitiveEnumV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         enumValue: 1
-    00000011:
+    - rid: 17
       type: {class: TypeHandler_UnityObjectV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         linkType: 1
         value: {fileID: 0}
         behaviourID: -1
-    00000012:
+    - rid: 18
       type: {class: TypeHandler_PrimitiveDecimalV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         value: 0.3499999940395355
-    00000013:
+    - rid: 19
       type: {class: TypeHandler_PrimitiveDecimalV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         value: 1
-    00000014:
+    - rid: 20
       type: {class: TypeHandler_PrimitiveDecimalV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         value: 1
-    00000015:
+    - rid: 21
       type: {class: TypeHandler_PrimitiveDecimalV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         value: 0
-    00000016:
+    - rid: 22
       type: {class: TypeHandler_PrimitiveDecimalV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         value: 0.8500000238418579
-    00000017:
+    - rid: 23
       type: {class: TypeHandler_PrimitiveDecimalV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         value: 1
-    00000018:
+    - rid: 24
       type: {class: TypeHandler_UnityObjectV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         linkType: 1
         value: {fileID: 2800000, guid: 062f240ecac624945a2f826f8d324521, type: 3}
         behaviourID: -1
-    00000019:
+    - rid: 25
       type: {class: TypeHandler_UnityObjectV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         linkType: 1
         value: {fileID: 2800000, guid: 54879ed44e1474142a873e2113e8e8e4, type: 3}
         behaviourID: -1
-    0000001A:
+    - rid: 26
       type: {class: TypeHandler_PrimitiveDecimalV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         value: 0
-    0000001B:
+    - rid: 27
       type: {class: TypeHandler_PrimitiveDecimalV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         value: 0.6140232086181641
-    0000001C:
+    - rid: 28
       type: {class: TypeHandler_PrimitiveDecimalV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         value: 1
-    0000001D:
+    - rid: 29
       type: {class: TypeHandler_PrimitiveDecimalV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         value: 1
-    0000001E:
+    - rid: 30
       type: {class: TypeHandler_PrimitiveDecimalV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         value: 1
-    0000001F:
+    - rid: 31
       type: {class: TypeHandler_PrimitiveDecimalV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         value: 1
-    00000020:
+    - rid: 32
       type: {class: TypeHandler_PrimitiveDecimalV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         value: 1
-    00000021:
+    - rid: 33
       type: {class: TypeHandler_PrimitiveDecimalV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         value: 1
-    00000022:
+    - rid: 34
       type: {class: TypeHandler_PrimitiveDecimalV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         value: 1
-    00000023:
+    - rid: 35
       type: {class: TypeHandler_PrimitiveDecimalV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         value: 1
-    00000024:
+    - rid: 36
       type: {class: TypeHandler_PrimitiveDecimalV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}
         value: 1
-    00000025:
+    - rid: 37
       type: {class: TypeHandler_PrimitiveDecimalV2, ns: UMod.Shared.Linker.TypeHandler, asm: UMod-Shared}
       data:
         behaviour: {fileID: -2258155144548339736}

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Video;
 using sourcenity;
 using System.Linq;
+using DG.Tweening;
 
 public class ReactingLights : MonoBehaviour
 {

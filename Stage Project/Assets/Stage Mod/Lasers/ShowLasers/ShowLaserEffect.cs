@@ -294,35 +294,43 @@ namespace sourcenity {
         /// </summary>
         private void Update() {
 
-            if (DoAnimate) {
+            if (DoAnimate)
+            {
                 RefreshMesh();
+                RefreshMaterial();
                 shadow = CloneValues();
-                ApplyMeshAndMaterialToGameObject();
-                prevShow = show;
+                if ((show && !prevShow) || (!show && prevShow))
+                {
+                    ApplyMeshAndMaterialToGameObject();
+                    prevShow = show;
+                }
             }
+            else {
+                bool hasChanged = false;
 
-            bool hasChanged = false;
-           
                 if (IsMeshBasedValuesChanged())
                 {
                     RefreshMesh();
                     hasChanged = true;
                 }
-            
+
                 if (IsMaterialRelevantValuesChanged())
                 {
                     RefreshMaterial();
                     hasChanged = true;
                 }
-            
 
-                if (hasChanged) {
-                shadow = CloneValues();
-            }
 
-            if (hasChanged || (show && !prevShow) || (!show && prevShow)) {
-                ApplyMeshAndMaterialToGameObject();
-                prevShow = show;
+                if (hasChanged)
+                {
+                    shadow = CloneValues();
+                }
+
+                if (hasChanged || (show && !prevShow) || (!show && prevShow))
+                {
+                    ApplyMeshAndMaterialToGameObject();
+                    prevShow = show;
+                }
             }
         }
 

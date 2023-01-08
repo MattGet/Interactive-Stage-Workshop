@@ -45,6 +45,7 @@ public class StageVideoManager : MonoBehaviour
     public bool isSeeking = false;
     public UnityEvent VideoPrepared;
 
+
     // Start is called before the first frame update
     void Start()
     {
