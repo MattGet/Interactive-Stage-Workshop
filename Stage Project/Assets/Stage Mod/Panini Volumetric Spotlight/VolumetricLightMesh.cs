@@ -16,6 +16,7 @@ public class VolumetricLightMesh : MonoBehaviour
     private string MaterialsFolderPath = "";
     public Material LightMat;
     private Material LightInstance;
+    [Tooltip("The object/Mesh that Represents the light/lightbulb surface this is used to make the bulb change colors along with the actual light")]
     public GameObject LightObject;
     private float ShadowRadius;
     private float ShadowRange;
@@ -54,7 +55,7 @@ public class VolumetricLightMesh : MonoBehaviour
     {
         if (LightObject == null)
         {
-            LightObject = this.gameObject.transform.parent.gameObject;
+            if (this.gameObject.transform.parent.gameObject != null) LightObject = this.gameObject.transform.parent.gameObject;
         }
     }
 
